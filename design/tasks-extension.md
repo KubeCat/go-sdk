@@ -166,6 +166,7 @@ type TaskToolHandlerFor[In, Out any] func(context.Context, *CallToolRequest, *Ta
 func (s *TaskServer) AddTool(*Tool, TaskToolHandler)
 func AddTaskTool[In, Out any](*TaskServer, *Tool, TaskToolHandlerFor[In, Out])
 
+func (c *TaskContext) TaskID() string
 func (c *TaskContext) SetStatusMessage(string) error
 func (c *TaskContext) RequireInput(context.Context, InputRequestMap) (InputResponseMap, error)
 
@@ -191,6 +192,8 @@ and the handler then runs in the background with a context that `tasks/cancel`
 cancels. A call that does not declare the extension runs the same handler
 synchronously, or is refused with `-32021` when `RequireTasks` is set. Tools
 added with `Server.AddTool` are never answered with a task.
+`TaskContext.TaskID` returns the task's ID to a handler that runs as a task,
+and the empty string to one that runs synchronously.
 
 A handler's result and error map to the task as they map to a synchronous
 answer: a tool error completes the task with `isError: true`, and an error that

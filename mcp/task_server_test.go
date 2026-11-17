@@ -179,6 +179,48 @@ func TestTaskServerToolCallWithoutOptInIsSynchronous(t *testing.T) {
 	}
 }
 
+func TestTaskContextTaskID(t *testing.T) {
+	server := NewServer(testImpl, nil)
+	tasks, err := NewTaskServer(server, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	seen := make(chan string, 2)
+	tasks.AddTool(&Tool{Name: "work", InputSchema: json.RawMessage(`{"type":"object"}`)},
+		func(_ context.Context, _ *CallToolRequest, taskContext *TaskContext) (*CallToolResult, error) {
+			seen <- taskContext.TaskID()
+			return &CallToolResult{Content: []Content{&TextContent{Text: "done"}}}, nil
+		})
+	client := connectTaskClient(t, server, nil)
+
+	result, err := client.CallTool(taskTestContext(t), &CallToolParams{Name: "work", UseTasks: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	task := taskHandle(t, result)
+	got := waitTask(t, seen, "the task handler's ID")
+	current, err := getTaskForTest(t, client, task.TaskID, tasksRequestMeta())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got == "" || got != current.TaskID {
+		t.Errorf("TaskID() in a task = %q, want the ID tasks/get answers for, %q", got, current.TaskID)
+	}
+
+	// A call that does not declare the extension runs the same handler
+	// synchronously, and that handler has no task.
+	result, err = client.CallTool(taskTestContext(t), &CallToolParams{Name: "work"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if task, ok := result.Task(); ok {
+		t.Fatalf("non-declaring call received task %+v", task)
+	}
+	if got := waitTask(t, seen, "the synchronous handler's ID"); got != "" {
+		t.Errorf("TaskID() in a synchronous call = %q, want the empty string", got)
+	}
+}
+
 func TestTaskServerRequireTasks(t *testing.T) {
 	server := NewServer(testImpl, nil)
 	tasks, err := NewTaskServer(server, &TaskServerOptions{RequireTasks: true})

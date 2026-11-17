@@ -52,6 +52,13 @@ func (c *TaskContext) SetStatusMessage(message string) error {
 	})
 }
 
+// TaskID returns the ID of the task the handler runs as. It returns the empty
+// string when the handler runs synchronously, for a call that did not declare
+// the tasks extension.
+func (c *TaskContext) TaskID() string {
+	return c.taskID
+}
+
 // AddTool adds a task-capable tool to the server.
 //
 // A call whose request declares the tasks extension is answered with a task

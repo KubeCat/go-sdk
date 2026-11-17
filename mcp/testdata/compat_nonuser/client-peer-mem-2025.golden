@@ -1,0 +1,112 @@
+== handshake ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"method not found: server/discover"}}
+c>s {"jsonrpc":"2.0","id":2,"method":"initialize","params":{"clientInfo":{"name":"plain-client","version":"v1"},"protocolVersion":"2025-11-25","capabilities":{"roots":{"listChanged":true}}}}
+s>c {"jsonrpc":"2.0","id":2,"result":{"capabilities":{"tools":{"listChanged":true},"resources":{"subscribe":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"protocolVersion":"2025-11-25","serverInfo":{"name":"raw-server","version":"v1"}}}
+c>s {"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
+== a task result nobody asked for ==
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"task","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"resultType":"task","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go CallTool(task) marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== an error that asks for the tasks capability ==
+c>s {"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"needs-tasks","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":4,"error":{"code":-32021,"message":"missing required tasks extension capability","data":{"requiredCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}}}}
+go CallTool(needs-tasks) err="calling \"tools/call\": missing required tasks extension capability"
+== notifications/tasks nobody subscribed to ==
+c>s {"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"notify:working","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/tasks","params":{"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(notify:working) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"notify:with-subscription-id","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/tasks","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":3},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":6,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(notify:with-subscription-id) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"notify:completed","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/tasks","params":{"taskId":"t-1","status":"completed","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":null,"result":{"content":[{"type":"text","text":"done"}]}}}
+s>c {"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(notify:completed) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"notify:taskid-number","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/tasks","params":{"taskId":7,"status":"working"}}
+s>c {"jsonrpc":"2.0","id":8,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(notify:taskid-number) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":9,"method":"tools/call","params":{"name":"notify:no-params","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/tasks"}
+s>c {"jsonrpc":"2.0","id":9,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(notify:no-params) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"name":"notify:legacy-name","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/tasks/status","params":{"taskId":"t-1","status":"working"}}
+s>c {"jsonrpc":"2.0","id":10,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(notify:legacy-name) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+== tasks requests from the server ==
+c>s {"jsonrpc":"2.0","id":11,"method":"tools/call","params":{"name":"request:tasks/get","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":"srv-tasks-get","method":"tasks/get","params":{"taskId":"t-1"}}
+c>s {"jsonrpc":"2.0","id":"srv-tasks-get","error":{"code":-32601,"message":"method not found: \"tasks/get\""}}
+s>c {"jsonrpc":"2.0","id":11,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(request:tasks/get) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":12,"method":"tools/call","params":{"name":"request:tasks/update","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":"srv-tasks-update","method":"tasks/update","params":{"taskId":"t-1"}}
+c>s {"jsonrpc":"2.0","id":"srv-tasks-update","error":{"code":-32601,"message":"method not found: \"tasks/update\""}}
+s>c {"jsonrpc":"2.0","id":12,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(request:tasks/update) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":13,"method":"tools/call","params":{"name":"request:tasks/cancel","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":"srv-tasks-cancel","method":"tasks/cancel","params":{"taskId":"t-1"}}
+c>s {"jsonrpc":"2.0","id":"srv-tasks-cancel","error":{"code":-32601,"message":"method not found: \"tasks/cancel\""}}
+s>c {"jsonrpc":"2.0","id":13,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(request:tasks/cancel) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":14,"method":"tools/call","params":{"name":"request:tasks/list","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":"srv-tasks-list","method":"tasks/list","params":{"taskId":"t-1"}}
+c>s {"jsonrpc":"2.0","id":"srv-tasks-list","error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+s>c {"jsonrpc":"2.0","id":14,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(request:tasks/list) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":15,"method":"tools/call","params":{"name":"request:tasks/result","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":"srv-tasks-result","method":"tasks/result","params":{"taskId":"t-1"}}
+c>s {"jsonrpc":"2.0","id":"srv-tasks-result","error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+s>c {"jsonrpc":"2.0","id":15,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(request:tasks/result) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+== subscription acknowledgements naming tasks ==
+c>s {"jsonrpc":"2.0","id":16,"method":"resources/subscribe","params":{"uri":"fixture://note-0"}}
+s>c {"jsonrpc":"2.0","id":16,"result":{}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"notifications":{"resourceSubscriptions":["fixture://note-0"],"taskIds":["t-1"]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"uri":"fixture://note-0"}}
+go Subscribe(fixture://note-0) err=<nil>
+go ResourceUpdatedHandler uri=fixture://note-0
+c>s {"jsonrpc":"2.0","id":17,"method":"resources/unsubscribe","params":{"uri":"fixture://note-0"}}
+s>c {"jsonrpc":"2.0","id":17,"result":{}}
+go Unsubscribe(fixture://note-0) err=<nil>
+c>s {"jsonrpc":"2.0","id":18,"method":"resources/subscribe","params":{"uri":"fixture://note-1"}}
+s>c {"jsonrpc":"2.0","id":18,"result":{}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"notifications":{"resourceSubscriptions":["fixture://note-1"],"taskIds":[]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"uri":"fixture://note-1"}}
+go Subscribe(fixture://note-1) err=<nil>
+go ResourceUpdatedHandler uri=fixture://note-1
+c>s {"jsonrpc":"2.0","id":19,"method":"resources/unsubscribe","params":{"uri":"fixture://note-1"}}
+s>c {"jsonrpc":"2.0","id":19,"result":{}}
+go Unsubscribe(fixture://note-1) err=<nil>
+c>s {"jsonrpc":"2.0","id":20,"method":"resources/subscribe","params":{"uri":"fixture://note-2"}}
+s>c {"jsonrpc":"2.0","id":20,"result":{}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"notifications":{"resourceSubscriptions":["fixture://note-2"],"taskIds":"t-1"}}}
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"uri":"fixture://note-2"}}
+go Subscribe(fixture://note-2) err=<nil>
+go ResourceUpdatedHandler uri=fixture://note-2
+c>s {"jsonrpc":"2.0","id":21,"method":"resources/unsubscribe","params":{"uri":"fixture://note-2"}}
+s>c {"jsonrpc":"2.0","id":21,"result":{}}
+go Unsubscribe(fixture://note-2) err=<nil>
+c>s {"jsonrpc":"2.0","id":22,"method":"resources/subscribe","params":{"uri":"fixture://note-3"}}
+s>c {"jsonrpc":"2.0","id":22,"result":{}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"notifications":{"resourceSubscriptions":["fixture://note-3"],"taskIds":[7]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"uri":"fixture://note-3"}}
+go Subscribe(fixture://note-3) err=<nil>
+go ResourceUpdatedHandler uri=fixture://note-3
+c>s {"jsonrpc":"2.0","id":23,"method":"resources/unsubscribe","params":{"uri":"fixture://note-3"}}
+s>c {"jsonrpc":"2.0","id":23,"result":{}}
+go Unsubscribe(fixture://note-3) err=<nil>
+== ordinary calls afterwards ==
+c>s {"jsonrpc":"2.0","id":24,"method":"tools/list"}
+s>c {"jsonrpc":"2.0","id":24,"result":{"tools":[{"name":"plain","inputSchema":{"type":"object"},"execution":{"taskSupport":"required"}}]}}
+go ListTools {"ttlMs":0,"cacheScope":"","tools":[{"inputSchema":{"type":"object"},"name":"plain"}]} err=<nil>
+c>s {"jsonrpc":"2.0","id":25,"method":"tools/call","params":{"name":"plain","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":25,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(plain) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+== close ==
+c>s <closed>
+go Close err=<nil>

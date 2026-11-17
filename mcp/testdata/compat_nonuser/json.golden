@@ -1,0 +1,417 @@
+== CallToolResult: wire JSON, unmarshal, marshal ==
+absent/bare
+  in  {}
+  out {"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/content
+  in  {"content":[{"type":"text","text":"hi"}]}
+  out {"content":[{"type":"text","text":"hi"}]}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+absent/taskfields
+  in  {"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/taskid7
+  in  {"taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/notaskid
+  in  {"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/content+taskfields
+  in  {"content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}]}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+absent/ttlnull
+  in  {"taskId":"t-1","status":"working","ttlMs":null}
+  out {"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/badtypes
+  in  {"taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}
+  out {"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/meta+taskfields
+  in  {"_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"_meta":{"fixture/key":"v"},"content":[]}
+  go  needsInput=false isError=false content=0 structured=false meta=map[fixture/key:v] inputRequests=0 requestState=""
+absent/full+taskfields
+  in  {"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true}
+  go  needsInput=false isError=true content=1 structured=true meta=map[] inputRequests=0 requestState=""
+absent/inputreq-empty
+  in  {"inputRequests":{}}
+  out {"content":[],"inputRequests":{}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+absent/inputreq-roots+taskfields
+  in  {"inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"requestState":"st-1","inputRequests":{"r1":{"method":"roots/list","params":{}}}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=1 requestState="st-1"
+complete/bare
+  in  {"resultType":"complete"}
+  out {"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/content
+  in  {"resultType":"complete","content":[{"type":"text","text":"hi"}]}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"complete"}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+complete/taskfields
+  in  {"resultType":"complete","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/taskid7
+  in  {"resultType":"complete","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/notaskid
+  in  {"resultType":"complete","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/content+taskfields
+  in  {"resultType":"complete","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"complete"}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+complete/ttlnull
+  in  {"resultType":"complete","taskId":"t-1","status":"working","ttlMs":null}
+  out {"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/badtypes
+  in  {"resultType":"complete","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}
+  out {"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/meta+taskfields
+  in  {"resultType":"complete","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"_meta":{"fixture/key":"v"},"content":[],"resultType":"complete"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[fixture/key:v] inputRequests=0 requestState=""
+complete/full+taskfields
+  in  {"resultType":"complete","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"complete"}
+  go  needsInput=false isError=true content=1 structured=true meta=map[] inputRequests=0 requestState=""
+complete/inputreq-empty
+  in  {"resultType":"complete","inputRequests":{}}
+  out {"content":[],"resultType":"complete","inputRequests":{}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+complete/inputreq-roots+taskfields
+  in  {"resultType":"complete","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"requestState":"st-1","resultType":"complete","inputRequests":{"r1":{"method":"roots/list","params":{}}}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=1 requestState="st-1"
+input_required/bare
+  in  {"resultType":"input_required"}
+  out {"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/content
+  in  {"resultType":"input_required","content":[{"type":"text","text":"hi"}]}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"input_required"}
+  go  needsInput=true isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/taskfields
+  in  {"resultType":"input_required","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/taskid7
+  in  {"resultType":"input_required","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/notaskid
+  in  {"resultType":"input_required","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/content+taskfields
+  in  {"resultType":"input_required","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"input_required"}
+  go  needsInput=true isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/ttlnull
+  in  {"resultType":"input_required","taskId":"t-1","status":"working","ttlMs":null}
+  out {"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/badtypes
+  in  {"resultType":"input_required","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}
+  out {"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/meta+taskfields
+  in  {"resultType":"input_required","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"_meta":{"fixture/key":"v"},"content":[],"resultType":"input_required"}
+  go  needsInput=true isError=false content=0 structured=false meta=map[fixture/key:v] inputRequests=0 requestState=""
+input_required/full+taskfields
+  in  {"resultType":"input_required","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"input_required"}
+  go  needsInput=true isError=true content=1 structured=true meta=map[] inputRequests=0 requestState=""
+input_required/inputreq-empty
+  in  {"resultType":"input_required","inputRequests":{}}
+  out {"content":[],"resultType":"input_required","inputRequests":{}}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+input_required/inputreq-roots+taskfields
+  in  {"resultType":"input_required","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"requestState":"st-1","resultType":"input_required","inputRequests":{"r1":{"method":"roots/list","params":{}}}}
+  go  needsInput=true isError=false content=0 structured=false meta=map[] inputRequests=1 requestState="st-1"
+task/bare
+  in  {"resultType":"task"}
+  out {"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/content
+  in  {"resultType":"task","content":[{"type":"text","text":"hi"}]}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"task"}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+task/taskfields
+  in  {"resultType":"task","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/taskid7
+  in  {"resultType":"task","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/notaskid
+  in  {"resultType":"task","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/content+taskfields
+  in  {"resultType":"task","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"task"}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+task/ttlnull
+  in  {"resultType":"task","taskId":"t-1","status":"working","ttlMs":null}
+  out {"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/badtypes
+  in  {"resultType":"task","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}
+  out {"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/meta+taskfields
+  in  {"resultType":"task","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"_meta":{"fixture/key":"v"},"content":[],"resultType":"task"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[fixture/key:v] inputRequests=0 requestState=""
+task/full+taskfields
+  in  {"resultType":"task","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"task"}
+  go  needsInput=false isError=true content=1 structured=true meta=map[] inputRequests=0 requestState=""
+task/inputreq-empty
+  in  {"resultType":"task","inputRequests":{}}
+  out {"content":[],"resultType":"task","inputRequests":{}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+task/inputreq-roots+taskfields
+  in  {"resultType":"task","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"requestState":"st-1","resultType":"task","inputRequests":{"r1":{"method":"roots/list","params":{}}}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=1 requestState="st-1"
+mystery/bare
+  in  {"resultType":"mystery"}
+  out {"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/content
+  in  {"resultType":"mystery","content":[{"type":"text","text":"hi"}]}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"mystery"}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/taskfields
+  in  {"resultType":"mystery","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/taskid7
+  in  {"resultType":"mystery","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/notaskid
+  in  {"resultType":"mystery","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/content+taskfields
+  in  {"resultType":"mystery","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"resultType":"mystery"}
+  go  needsInput=false isError=false content=1 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/ttlnull
+  in  {"resultType":"mystery","taskId":"t-1","status":"working","ttlMs":null}
+  out {"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/badtypes
+  in  {"resultType":"mystery","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}
+  out {"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/meta+taskfields
+  in  {"resultType":"mystery","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"_meta":{"fixture/key":"v"},"content":[],"resultType":"mystery"}
+  go  needsInput=false isError=false content=0 structured=false meta=map[fixture/key:v] inputRequests=0 requestState=""
+mystery/full+taskfields
+  in  {"resultType":"mystery","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"mystery"}
+  go  needsInput=false isError=true content=1 structured=true meta=map[] inputRequests=0 requestState=""
+mystery/inputreq-empty
+  in  {"resultType":"mystery","inputRequests":{}}
+  out {"content":[],"resultType":"mystery","inputRequests":{}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=0 requestState=""
+mystery/inputreq-roots+taskfields
+  in  {"resultType":"mystery","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"content":[],"requestState":"st-1","resultType":"mystery","inputRequests":{"r1":{"method":"roots/list","params":{}}}}
+  go  needsInput=false isError=false content=0 structured=false meta=map[] inputRequests=1 requestState="st-1"
+== CallToolResult: Go values a program written for the unchanged SDK can construct ==
+zero
+  out {"content":null}
+content
+  out {"content":[{"type":"text","text":"hi"}]}
+meta
+  out {"_meta":{"status":"working","taskId":"t-1"},"content":null}
+error
+  out {"content":[{"type":"text","text":"bad"}],"isError":true}
+structured-task-shaped
+  out {"content":null,"structuredContent":{"resultType":"task","status":"working","taskId":"t-1"}}
+== CallToolParams ==
+  in  {"name":"t"}
+  out {"name":"t"}
+  in  {"name":"t","arguments":{"a":1}}
+  out {"name":"t","arguments":{"a":1}}
+  in  {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"name":"t","arguments":{}}
+  out {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"roots":{"listChanged":true}}},"name":"t","arguments":{}}
+  in  {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"name":"t","arguments":{},"task":{"ttl":1000}}
+  out {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"roots":{"listChanged":true}}},"name":"t","arguments":{}}
+  in  {"name":"t","useTasks":true,"UseTasks":true}
+  out {"name":"t"}
+  in  {"name":"t","taskId":"t-1"}
+  out {"name":"t"}
+  in  {"name":"t","requestState":"s","inputResponses":{}}
+  out {"name":"t","requestState":"s"}
+== CallToolParamsRaw ==
+  in  {"name":"t"}
+  out {"name":"t"}
+  in  {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"name":"t","arguments":{"a":1}}
+  out {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"roots":{"listChanged":true}}},"name":"t","arguments":{"a":1}}
+  in  {"name":"t","useTasks":true,"UseTasks":true,"task":{"ttl":1000}}
+  out {"name":"t"}
+== CallToolParams: Go values ==
+  out {"name":""}
+  out {"name":"t"}
+  out {"name":"t","arguments":{"a":1}}
+  out {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"name":"t"}
+== NotificationSubscriptions ==
+  in  {}
+  out {}
+  in  {"toolsListChanged":true,"resourceSubscriptions":["fixture://note"]}
+  out {"toolsListChanged":true,"resourceSubscriptions":["fixture://note"]}
+  in  {"taskIds":["t-1"]}
+  out {}
+  in  {"taskIds":[]}
+  out {}
+  in  {"taskIds":null}
+  out {}
+  in  {"taskIds":"t-1"}
+  out {}
+  in  {"taskIds":[7]}
+  out {}
+  in  {"taskIds":{"t-1":true}}
+  out {}
+  in  {"resourceSubscriptions":["fixture://note"],"taskIds":["t-1","t-2"]}
+  out {"resourceSubscriptions":["fixture://note"]}
+== SubscriptionsListenParams ==
+  in  {"notifications":{}}
+  out {"notifications":{}}
+  in  {"notifications":{"toolsListChanged":true,"resourceSubscriptions":["fixture://note"]}}
+  out {"notifications":{"toolsListChanged":true,"resourceSubscriptions":["fixture://note"]}}
+  in  {"notifications":{"taskIds":["t-1"]}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":[]}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":null}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":"t-1"}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":[7]}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":{"t-1":true}}}
+  out {"notifications":{}}
+  in  {"notifications":{"resourceSubscriptions":["fixture://note"],"taskIds":["t-1","t-2"]}}
+  out {"notifications":{"resourceSubscriptions":["fixture://note"]}}
+  in  {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"notifications":{"taskIds":["t-1"]}}
+  out {"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"roots":{"listChanged":true}}},"notifications":{}}
+== SubscriptionsAcknowledgedParams ==
+  in  {"notifications":{}}
+  out {"notifications":{}}
+  in  {"notifications":{"toolsListChanged":true,"resourceSubscriptions":["fixture://note"]}}
+  out {"notifications":{"toolsListChanged":true,"resourceSubscriptions":["fixture://note"]}}
+  in  {"notifications":{"taskIds":["t-1"]}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":[]}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":null}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":"t-1"}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":[7]}}
+  out {"notifications":{}}
+  in  {"notifications":{"taskIds":{"t-1":true}}}
+  out {"notifications":{}}
+  in  {"notifications":{"resourceSubscriptions":["fixture://note"],"taskIds":["t-1","t-2"]}}
+  out {"notifications":{"resourceSubscriptions":["fixture://note"]}}
+  in  {"_meta":{"io.modelcontextprotocol/subscriptionId":3},"notifications":{"taskIds":["t-1"]}}
+  out {"_meta":{"io.modelcontextprotocol/subscriptionId":3},"notifications":{}}
+== SubscriptionsListenResult ==
+  in  {"resultType":"complete","_meta":{}}
+  out {"resultType":"complete","_meta":{}}
+  in  {"resultType":"task","_meta":{},"taskId":"t-1"}
+  out {"resultType":"task","_meta":{}}
+== NotificationSubscriptions: Go values ==
+  out {}
+  out {"toolsListChanged":true,"promptsListChanged":true,"resourcesListChanged":true,"resourceSubscriptions":["fixture://note"]}
+== ServerCapabilities ==
+  in  {}
+  out {}
+  in  {"tools":{"listChanged":true}}
+  out {"tools":{"listChanged":true}}
+  in  {"extensions":{"io.modelcontextprotocol/tasks":{}}}
+  out {"extensions":{"io.modelcontextprotocol/tasks":{}}}
+  in  {"extensions":{"io.modelcontextprotocol/tasks":{"x":1},"fixture/ext":{}}}
+  out {"extensions":{"fixture/ext":{},"io.modelcontextprotocol/tasks":{"x":1}}}
+  in  {"tasks":{"list":{},"cancel":{},"requests":{"tools":{"call":{}}}}}
+  out {}
+  in  {"experimental":{"tasks":{}}}
+  out {"experimental":{"tasks":{}}}
+== ClientCapabilities ==
+  in  {}
+  out {"roots":{}}
+  in  {"tools":{"listChanged":true}}
+  out {"roots":{}}
+  in  {"extensions":{"io.modelcontextprotocol/tasks":{}}}
+  out {"extensions":{"io.modelcontextprotocol/tasks":{}},"roots":{}}
+  in  {"extensions":{"io.modelcontextprotocol/tasks":{"x":1},"fixture/ext":{}}}
+  out {"extensions":{"fixture/ext":{},"io.modelcontextprotocol/tasks":{"x":1}},"roots":{}}
+  in  {"tasks":{"list":{},"cancel":{},"requests":{"tools":{"call":{}}}}}
+  out {"roots":{}}
+  in  {"experimental":{"tasks":{}}}
+  out {"experimental":{"tasks":{}},"roots":{}}
+== DiscoverResult ==
+  in  {"resultType":"complete","supportedVersions":["2026-07-28"],"capabilities":{"tools":{}}}
+  out {"resultType":"complete","ttlMs":0,"cacheScope":"","supportedVersions":["2026-07-28"],"capabilities":{"tools":{}}}
+  in  {"resultType":"complete","supportedVersions":["2026-07-28"],"capabilities":{"tools":{},"extensions":{"io.modelcontextprotocol/tasks":{}}}}
+  out {"resultType":"complete","ttlMs":0,"cacheScope":"","supportedVersions":["2026-07-28"],"capabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"tools":{}}}
+  in  {"resultType":"task","taskId":"t-1","supportedVersions":["2026-07-28"],"capabilities":{"tasks":{}}}
+  out {"resultType":"task","ttlMs":0,"cacheScope":"","supportedVersions":["2026-07-28"],"capabilities":{}}
+  in  {"supportedVersions":[],"capabilities":null}
+  out {"ttlMs":0,"cacheScope":"","supportedVersions":[],"capabilities":null}
+== InitializeResult ==
+  in  {"protocolVersion":"2025-11-25","capabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}},"serverInfo":{"name":"n","version":"v"}}
+  out {"capabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}},"protocolVersion":"2025-11-25","serverInfo":{"name":"n","version":"v"}}
+  in  {"protocolVersion":"2025-11-25","capabilities":{"tasks":{"list":{}}},"serverInfo":{"name":"n","version":"v"}}
+  out {"capabilities":{},"protocolVersion":"2025-11-25","serverInfo":{"name":"n","version":"v"}}
+== InitializeParams ==
+  in  {"protocolVersion":"2025-11-25","capabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}},"clientInfo":{"name":"n","version":"v"}}
+  out {"capabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"roots":{}},"clientInfo":{"name":"n","version":"v"},"protocolVersion":"2025-11-25"}
+== Tool ==
+  in  {"name":"t","inputSchema":{"type":"object"}}
+  out {"inputSchema":{"type":"object"},"name":"t"}
+  in  {"name":"t","inputSchema":{"type":"object"},"execution":{"taskSupport":"optional"}}
+  out {"inputSchema":{"type":"object"},"name":"t"}
+== ListToolsResult ==
+  in  {"tools":[{"name":"t","inputSchema":{"type":"object"},"execution":{"taskSupport":"required"}}]}
+  out {"ttlMs":0,"cacheScope":"","tools":[{"inputSchema":{"type":"object"},"name":"t"}]}
+  in  {"resultType":"task","taskId":"t-1","tools":[]}
+  out {"resultType":"task","ttlMs":0,"cacheScope":"","tools":[]}
+== GetPromptResult ==
+  in  {"messages":[]}
+  out {"messages":[]}
+  in  {"resultType":"task","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"messages":null,"resultType":"task"}
+== ReadResourceResult ==
+  in  {"contents":[]}
+  out {"ttlMs":0,"cacheScope":"","contents":[]}
+  in  {"resultType":"task","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}
+  out {"ttlMs":60000,"cacheScope":"","contents":null,"resultType":"task"}
+== CreateMessageResult ==
+  in  {"resultType":"task","taskId":"t-1","role":"assistant","model":"m","content":{"type":"text","text":"x"}}
+  out {"content":{"type":"text","text":"x"},"model":"m","role":"assistant"}
+== ElicitResult ==
+  in  {"resultType":"task","taskId":"t-1","action":"accept"}
+  out {"action":"accept"}

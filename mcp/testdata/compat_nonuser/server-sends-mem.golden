@@ -1,0 +1,39 @@
+== 2025-11-25 connection ==
+c>s {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{"roots":{},"extensions":{"io.modelcontextprotocol/tasks":{}}},"clientInfo":{"name":"raw-caller","version":"v1"}}}
+s>c {"jsonrpc":"2.0","id":1,"result":{"capabilities":{"logging":{},"tools":{"listChanged":true}},"protocolVersion":"2025-11-25","serverInfo":{"name":"plain-server","version":"v1"}}}
+c>s {"jsonrpc":"2.0","method":"notifications/initialized"}
+c>s {"jsonrpc":"2.0","id":2,"method":"logging/setLevel","params":{"level":"debug"}}
+s>c {"jsonrpc":"2.0","id":2,"result":{}}
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"_meta":{"progressToken":"tok"},"name":"log","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/message","params":{"data":"logged","level":"error","logger":"fixture"}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"Log err=\u003cnil\u003e"}]}}
+c>s {"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"_meta":{"progressToken":"tok"},"name":"progress","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/progress","params":{"progressToken":"tok","progress":1,"total":2}}
+s>c {"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"NotifyProgress err=\u003cnil\u003e"}]}}
+c>s {"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"_meta":{"progressToken":"tok"},"name":"roots","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":1,"method":"roots/list"}
+c>s {"jsonrpc":"2.0","id":1,"result":{"roots":[]}}
+s>c {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"ListRoots result={\"roots\":[]} err=\u003cnil\u003e"}]}}
+c>s {"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"_meta":{"progressToken":"tok"},"name":"ping","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":2,"method":"ping"}
+c>s {"jsonrpc":"2.0","id":2,"result":{}}
+s>c {"jsonrpc":"2.0","id":6,"result":{"content":[{"type":"text","text":"Ping err=\u003cnil\u003e"}]}}
+c>s <closed>
+go ServerSession.Wait err=<nil>
+s>c <closed>
+== 2026-07-28 connection ==
+c>s {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"_meta":{"progressToken":"tok","io.modelcontextprotocol/logLevel":"debug","io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"log","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/message","params":{"data":"logged","level":"error","logger":"fixture"}}
+s>c {"jsonrpc":"2.0","id":7,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"Log err=\u003cnil\u003e"}],"resultType":"complete"}}
+c>s {"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"_meta":{"progressToken":"tok","io.modelcontextprotocol/logLevel":"debug","io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"progress","arguments":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/progress","params":{"progressToken":"tok","progress":1,"total":2}}
+s>c {"jsonrpc":"2.0","id":8,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"NotifyProgress err=\u003cnil\u003e"}],"resultType":"complete"}}
+c>s {"jsonrpc":"2.0","id":9,"method":"tools/call","params":{"_meta":{"progressToken":"tok","io.modelcontextprotocol/logLevel":"debug","io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"roots","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":9,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"ListRoots result=null err=\"roots/list\" cannot be sent while serving a request on protocol version 2026-07-28: return an InputRequests map instead (multi round-trip requests, SEP-2322)"}],"resultType":"complete"}}
+c>s {"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"_meta":{"progressToken":"tok","io.modelcontextprotocol/logLevel":"debug","io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"ping","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":1,"method":"ping"}
+c>s {"jsonrpc":"2.0","id":1,"result":{}}
+s>c {"jsonrpc":"2.0","id":10,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"Ping err=\u003cnil\u003e"}],"resultType":"complete"}}
+c>s <closed>
+go ServerSession.Wait err=<nil>
+s>c <closed>

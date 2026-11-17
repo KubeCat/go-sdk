@@ -1,0 +1,142 @@
+== client that registered its own tasks/* methods ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"method not found: server/discover"}}
+c>s {"jsonrpc":"2.0","id":2,"method":"initialize","params":{"clientInfo":{"name":"plain-client","version":"v1"},"protocolVersion":"2025-11-25","capabilities":{"roots":{"listChanged":true}}}}
+s>c {"jsonrpc":"2.0","id":2,"result":{"capabilities":{"tools":{"listChanged":true},"resources":{"subscribe":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"protocolVersion":"2025-11-25","serverInfo":{"name":"raw-server","version":"v1"}}}
+c>s {"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
+c>s {"jsonrpc":"2.0","id":3,"method":"tasks/get","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/get"}}
+go CallCustomMethod(tasks/get, taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/get"}
+c>s {"jsonrpc":"2.0","id":4,"method":"tasks/get","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":4,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/get"}}
+go CallCustomMethod(tasks/get, no-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/get"}
+c>s {"jsonrpc":"2.0","id":5,"method":"tasks/get","params":null}
+s>c {"jsonrpc":"2.0","id":5,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/get"}}
+go CallCustomMethod(tasks/get, nil-params) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/get"}
+c>s {"jsonrpc":"2.0","id":6,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1"}}
+s>c {"jsonrpc":"2.0","id":6,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/get"}}
+go CallCustomMethod(tasks/get, taskId+declared) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/get"}
+c>s {"jsonrpc":"2.0","id":7,"method":"tasks/get","params":{"taskId":7}}
+s>c {"jsonrpc":"2.0","id":7,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/get"}}
+go CallCustomMethod(tasks/get, numeric-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/get"}
+c>s {"jsonrpc":"2.0","id":8,"method":"tasks/update","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":8,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/update"}}
+go CallCustomMethod(tasks/update, taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/update"}
+c>s {"jsonrpc":"2.0","id":9,"method":"tasks/update","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":9,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/update"}}
+go CallCustomMethod(tasks/update, no-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/update"}
+c>s {"jsonrpc":"2.0","id":10,"method":"tasks/update","params":null}
+s>c {"jsonrpc":"2.0","id":10,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/update"}}
+go CallCustomMethod(tasks/update, nil-params) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/update"}
+c>s {"jsonrpc":"2.0","id":11,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1"}}
+s>c {"jsonrpc":"2.0","id":11,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/update"}}
+go CallCustomMethod(tasks/update, taskId+declared) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/update"}
+c>s {"jsonrpc":"2.0","id":12,"method":"tasks/update","params":{"taskId":7}}
+s>c {"jsonrpc":"2.0","id":12,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/update"}}
+go CallCustomMethod(tasks/update, numeric-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/update"}
+c>s {"jsonrpc":"2.0","id":13,"method":"tasks/cancel","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":13,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/cancel"}}
+go CallCustomMethod(tasks/cancel, taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/cancel"}
+c>s {"jsonrpc":"2.0","id":14,"method":"tasks/cancel","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":14,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/cancel"}}
+go CallCustomMethod(tasks/cancel, no-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/cancel"}
+c>s {"jsonrpc":"2.0","id":15,"method":"tasks/cancel","params":null}
+s>c {"jsonrpc":"2.0","id":15,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/cancel"}}
+go CallCustomMethod(tasks/cancel, nil-params) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/cancel"}
+c>s {"jsonrpc":"2.0","id":16,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1"}}
+s>c {"jsonrpc":"2.0","id":16,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/cancel"}}
+go CallCustomMethod(tasks/cancel, taskId+declared) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/cancel"}
+c>s {"jsonrpc":"2.0","id":17,"method":"tasks/cancel","params":{"taskId":7}}
+s>c {"jsonrpc":"2.0","id":17,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/cancel"}}
+go CallCustomMethod(tasks/cancel, numeric-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/cancel"}
+c>s {"jsonrpc":"2.0","id":18,"method":"tasks/list","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":18,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/list"}}
+go CallCustomMethod(tasks/list, taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/list"}
+c>s {"jsonrpc":"2.0","id":19,"method":"tasks/list","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":19,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/list"}}
+go CallCustomMethod(tasks/list, no-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/list"}
+c>s {"jsonrpc":"2.0","id":20,"method":"tasks/list","params":null}
+s>c {"jsonrpc":"2.0","id":20,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/list"}}
+go CallCustomMethod(tasks/list, nil-params) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/list"}
+c>s {"jsonrpc":"2.0","id":21,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1"}}
+s>c {"jsonrpc":"2.0","id":21,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/list"}}
+go CallCustomMethod(tasks/list, taskId+declared) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/list"}
+c>s {"jsonrpc":"2.0","id":22,"method":"tasks/list","params":{"taskId":7}}
+s>c {"jsonrpc":"2.0","id":22,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/list"}}
+go CallCustomMethod(tasks/list, numeric-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/list"}
+c>s {"jsonrpc":"2.0","id":23,"method":"tasks/result","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":23,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/result"}}
+go CallCustomMethod(tasks/result, taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/result"}
+c>s {"jsonrpc":"2.0","id":24,"method":"tasks/result","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":24,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/result"}}
+go CallCustomMethod(tasks/result, no-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/result"}
+c>s {"jsonrpc":"2.0","id":25,"method":"tasks/result","params":null}
+s>c {"jsonrpc":"2.0","id":25,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/result"}}
+go CallCustomMethod(tasks/result, nil-params) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/result"}
+c>s {"jsonrpc":"2.0","id":26,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1"}}
+s>c {"jsonrpc":"2.0","id":26,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/result"}}
+go CallCustomMethod(tasks/result, taskId+declared) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/result"}
+c>s {"jsonrpc":"2.0","id":27,"method":"tasks/result","params":{"taskId":7}}
+s>c {"jsonrpc":"2.0","id":27,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"tasks/result"}}
+go CallCustomMethod(tasks/result, numeric-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"tasks/result"}
+c>s {"jsonrpc":"2.0","id":28,"method":"acme/echo","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":28,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"acme/echo"}}
+go CallCustomMethod(acme/echo, taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"acme/echo"}
+c>s {"jsonrpc":"2.0","id":29,"method":"acme/echo","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":29,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"acme/echo"}}
+go CallCustomMethod(acme/echo, no-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"acme/echo"}
+c>s {"jsonrpc":"2.0","id":30,"method":"acme/echo","params":null}
+s>c {"jsonrpc":"2.0","id":30,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"acme/echo"}}
+go CallCustomMethod(acme/echo, nil-params) result={"taskId":"t-1","status":"working","resultType":"task","value":"acme/echo"}
+c>s {"jsonrpc":"2.0","id":31,"method":"acme/echo","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1"}}
+s>c {"jsonrpc":"2.0","id":31,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"acme/echo"}}
+go CallCustomMethod(acme/echo, taskId+declared) result={"taskId":"t-1","status":"working","resultType":"task","value":"acme/echo"}
+c>s {"jsonrpc":"2.0","id":32,"method":"acme/echo","params":{"taskId":7}}
+s>c {"jsonrpc":"2.0","id":32,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":60000,"value":"acme/echo"}}
+go CallCustomMethod(acme/echo, numeric-taskId) result={"taskId":"t-1","status":"working","resultType":"task","value":"acme/echo"}
+c>s {"jsonrpc":"2.0","id":33,"method":"tools/call","params":{"name":"plain","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":33,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(plain) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s <closed>
+go Close err=<nil>
+== client that registered nothing ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"method not found: server/discover"}}
+c>s {"jsonrpc":"2.0","id":2,"method":"initialize","params":{"clientInfo":{"name":"plain-client","version":"v1"},"protocolVersion":"2025-11-25","capabilities":{"roots":{"listChanged":true}}}}
+s>c {"jsonrpc":"2.0","id":2,"result":{"capabilities":{"tools":{"listChanged":true},"resources":{"subscribe":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"protocolVersion":"2025-11-25","serverInfo":{"name":"raw-server","version":"v1"}}}
+c>s {"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
+go CallCustomMethod(tasks/get, taskId) err="mcp: CallCustomMethod: \"tasks/get\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/get, no-taskId) err="mcp: CallCustomMethod: \"tasks/get\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/get, nil-params) err="mcp: CallCustomMethod: \"tasks/get\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/get, taskId+declared) err="mcp: CallCustomMethod: \"tasks/get\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/get, numeric-taskId) err="mcp: CallCustomMethod: \"tasks/get\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/update, taskId) err="mcp: CallCustomMethod: \"tasks/update\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/update, no-taskId) err="mcp: CallCustomMethod: \"tasks/update\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/update, nil-params) err="mcp: CallCustomMethod: \"tasks/update\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/update, taskId+declared) err="mcp: CallCustomMethod: \"tasks/update\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/update, numeric-taskId) err="mcp: CallCustomMethod: \"tasks/update\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/cancel, taskId) err="mcp: CallCustomMethod: \"tasks/cancel\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/cancel, no-taskId) err="mcp: CallCustomMethod: \"tasks/cancel\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/cancel, nil-params) err="mcp: CallCustomMethod: \"tasks/cancel\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/cancel, taskId+declared) err="mcp: CallCustomMethod: \"tasks/cancel\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/cancel, numeric-taskId) err="mcp: CallCustomMethod: \"tasks/cancel\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/list, taskId) err="mcp: CallCustomMethod: \"tasks/list\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/list, no-taskId) err="mcp: CallCustomMethod: \"tasks/list\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/list, nil-params) err="mcp: CallCustomMethod: \"tasks/list\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/list, taskId+declared) err="mcp: CallCustomMethod: \"tasks/list\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/list, numeric-taskId) err="mcp: CallCustomMethod: \"tasks/list\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/result, taskId) err="mcp: CallCustomMethod: \"tasks/result\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/result, no-taskId) err="mcp: CallCustomMethod: \"tasks/result\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/result, nil-params) err="mcp: CallCustomMethod: \"tasks/result\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/result, taskId+declared) err="mcp: CallCustomMethod: \"tasks/result\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(tasks/result, numeric-taskId) err="mcp: CallCustomMethod: \"tasks/result\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(acme/echo, taskId) err="mcp: CallCustomMethod: \"acme/echo\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(acme/echo, no-taskId) err="mcp: CallCustomMethod: \"acme/echo\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(acme/echo, nil-params) err="mcp: CallCustomMethod: \"acme/echo\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(acme/echo, taskId+declared) err="mcp: CallCustomMethod: \"acme/echo\" is not registered; call AddSendingCustomMethod first"
+go CallCustomMethod(acme/echo, numeric-taskId) err="mcp: CallCustomMethod: \"acme/echo\" is not registered; call AddSendingCustomMethod first"
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"plain","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"plain"}],"resultType":"complete"}}
+go CallTool(plain) marshal={"content":[{"type":"text","text":"plain"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s <closed>
+go Close err=<nil>

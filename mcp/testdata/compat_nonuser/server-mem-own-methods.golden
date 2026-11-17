@@ -1,0 +1,218 @@
+== 2026-07-28 connection ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","supportedVersions":["2026-07-28","2025-11-25","2025-06-18","2025-03-26","2024-11-05"],"capabilities":{"logging":{},"resources":{"listChanged":true,"subscribe":true},"tools":{"listChanged":true}}}}
+c>s {"jsonrpc":"2.0","id":2,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":2,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","tools":[{"inputSchema":{"type":"object"},"name":"echo"},{"inputSchema":{"type":"object"},"name":"fail"}]}}
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"echo","arguments":{"a":1},"task":{"ttl":1000}}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"echo {\"_meta\":{\"io.modelcontextprotocol/clientCapabilities\":{\"roots\":{\"listChanged\":true}},\"io.modelcontextprotocol/clientInfo\":{\"name\":\"raw-caller\",\"version\":\"v1\"},\"io.modelcontextprotocol/protocolVersion\":\"2026-07-28\"},\"name\":\"echo\",\"arguments\":{\"a\":1}}"}],"resultType":"complete"}}
+c>s {"jsonrpc":"2.0","id":4,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":4,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":5,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":5,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":6,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":6,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":7,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":7,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":8,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":8,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":9,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":9,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":10,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":10,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/get","sawTaskId":"t-1","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":11,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":11,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/get","sawTaskId":7,"value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":12,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":12,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/get","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":13,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":13,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/update","sawTaskId":"t-1","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":14,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":14,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/update","sawTaskId":7,"value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":15,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":15,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/update","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":16,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":16,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/cancel","sawTaskId":"t-1","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":17,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":17,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/cancel","sawTaskId":7,"value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":18,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":18,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/cancel","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":19,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":19},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":19,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":19}}}
+c>s {"jsonrpc":"2.0","id":20,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":["t-1"]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":20},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":20,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":20}}}
+c>s {"jsonrpc":"2.0","id":21,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":["t-1","t-2"],"toolsListChanged":false}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":21},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":21,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":21}}}
+c>s {"jsonrpc":"2.0","id":22,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":[]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":22},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":22,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":22}}}
+c>s {"jsonrpc":"2.0","id":23,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":null}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":23},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":23,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":23}}}
+c>s {"jsonrpc":"2.0","id":24,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":"t-1"}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":24},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":24,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":24}}}
+c>s {"jsonrpc":"2.0","id":25,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":[7]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":25},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":25,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":25}}}
+c>s {"jsonrpc":"2.0","id":26,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"resourceSubscriptions":["fixture://note"],"taskIds":["t-1"]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":26},"notifications":{"resourceSubscriptions":["fixture://note"]}}}
+go SubscribeHandler uri=fixture://note
+go ResourceUpdated err=<nil>
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":26},"uri":"fixture://note"}}
+c>s {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":26}}
+go UnsubscribeHandler uri=fixture://note
+c>s {"jsonrpc":"2.0","id":27,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":27,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","supportedVersions":["2026-07-28","2025-11-25","2025-06-18","2025-03-26","2024-11-05"],"capabilities":{"logging":{},"resources":{"listChanged":true,"subscribe":true},"tools":{"listChanged":true}}}}
+c>s {"jsonrpc":"2.0","id":28,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":28,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","tools":[{"inputSchema":{"type":"object"},"name":"echo"},{"inputSchema":{"type":"object"},"name":"fail"}]}}
+c>s {"jsonrpc":"2.0","id":29,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"echo","arguments":{"a":1},"task":{"ttl":1000}}}
+s>c {"jsonrpc":"2.0","id":29,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"echo {\"_meta\":{\"io.modelcontextprotocol/clientCapabilities\":{\"extensions\":{\"io.modelcontextprotocol/tasks\":{}},\"roots\":{\"listChanged\":true}},\"io.modelcontextprotocol/clientInfo\":{\"name\":\"raw-caller\",\"version\":\"v1\"},\"io.modelcontextprotocol/protocolVersion\":\"2026-07-28\"},\"name\":\"echo\",\"arguments\":{\"a\":1}}"}],"resultType":"complete"}}
+c>s {"jsonrpc":"2.0","id":30,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":30,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":31,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":31,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":32,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":32,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":33,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":33,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":34,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":34,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":35,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":35,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":36,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":36,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/get","sawTaskId":"t-1","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":37,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":37,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/get","sawTaskId":7,"value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":38,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":38,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/get","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":39,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":39,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/update","sawTaskId":"t-1","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":40,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":40,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/update","sawTaskId":7,"value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":41,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":41,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/update","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":42,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":42,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/cancel","sawTaskId":"t-1","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":43,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":43,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/cancel","sawTaskId":7,"value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":44,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":44,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"handler":"tasks/cancel","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":45,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":45},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":45,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":45}}}
+c>s {"jsonrpc":"2.0","id":46,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":["t-1"]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":46},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":46,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":46}}}
+c>s {"jsonrpc":"2.0","id":47,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":["t-1","t-2"],"toolsListChanged":false}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":47},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":47,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":47}}}
+c>s {"jsonrpc":"2.0","id":48,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":[]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":48},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":48,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":48}}}
+c>s {"jsonrpc":"2.0","id":49,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":null}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":49},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":49,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":49}}}
+c>s {"jsonrpc":"2.0","id":50,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":"t-1"}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":50},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":50,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":50}}}
+c>s {"jsonrpc":"2.0","id":51,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"taskIds":[7]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":51},"notifications":{}}}
+s>c {"jsonrpc":"2.0","id":51,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"},"io.modelcontextprotocol/subscriptionId":51}}}
+c>s {"jsonrpc":"2.0","id":52,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"resourceSubscriptions":["fixture://note"],"taskIds":["t-1"]}}}
+s>c {"jsonrpc":"2.0","method":"notifications/subscriptions/acknowledged","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":52},"notifications":{"resourceSubscriptions":["fixture://note"]}}}
+go SubscribeHandler uri=fixture://note
+go ResourceUpdated err=<nil>
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"_meta":{"io.modelcontextprotocol/subscriptionId":52},"uri":"fixture://note"}}
+c>s {"jsonrpc":"2.0","method":"notifications/cancelled","params":{"requestId":52}}
+go UnsubscribeHandler uri=fixture://note
+c>s {"jsonrpc":"2.0","method":"notifications/tasks","params":{"taskId":"t-1","status":"working","ttlMs":null}}
+c>s {"jsonrpc":"2.0","method":"notifications/tasks","params":{"taskId":7}}
+c>s {"jsonrpc":"2.0","id":53,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"echo","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":53,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"plain-server","version":"v1"}},"content":[{"type":"text","text":"echo {\"_meta\":{\"io.modelcontextprotocol/clientCapabilities\":{\"roots\":{\"listChanged\":true}},\"io.modelcontextprotocol/clientInfo\":{\"name\":\"raw-caller\",\"version\":\"v1\"},\"io.modelcontextprotocol/protocolVersion\":\"2026-07-28\"},\"name\":\"echo\",\"arguments\":{}}"}],"resultType":"complete"}}
+c>s <closed>
+go ServerSession.Wait err=<nil>
+s>c <closed>
+== 2025-11-25 connection to the same server ==
+c>s {"jsonrpc":"2.0","id":54,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{"extensions":{"io.modelcontextprotocol/tasks":{}},"tasks":{"requests":{"tools":{"call":{}}}}},"clientInfo":{"name":"raw-caller","version":"v1"}}}
+s>c {"jsonrpc":"2.0","id":54,"result":{"capabilities":{"logging":{},"resources":{"listChanged":true,"subscribe":true},"tools":{"listChanged":true}},"protocolVersion":"2025-11-25","serverInfo":{"name":"plain-server","version":"v1"}}}
+c>s {"jsonrpc":"2.0","method":"notifications/initialized"}
+c>s {"jsonrpc":"2.0","id":55,"method":"tools/list","params":{}}
+s>c {"jsonrpc":"2.0","id":55,"result":{"ttlMs":0,"cacheScope":"public","tools":[{"inputSchema":{"type":"object"},"name":"echo"},{"inputSchema":{"type":"object"},"name":"fail"}]}}
+c>s {"jsonrpc":"2.0","id":56,"method":"tools/call","params":{"name":"echo","arguments":{"a":1},"task":{"ttl":1000}}}
+s>c {"jsonrpc":"2.0","id":56,"result":{"content":[{"type":"text","text":"echo {\"name\":\"echo\",\"arguments\":{\"a\":1}}"}]}}
+c>s {"jsonrpc":"2.0","id":57,"method":"tasks/list","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":57,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":58,"method":"tasks/list","params":{"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":58,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":59,"method":"tasks/list","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":59,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":60,"method":"tasks/result","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":60,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":61,"method":"tasks/result","params":{"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":61,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":62,"method":"tasks/result","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":62,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":63,"method":"tasks/get","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":63,"result":{"handler":"tasks/get","sawTaskId":"t-1","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":64,"method":"tasks/get","params":{"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":64,"result":{"handler":"tasks/get","sawTaskId":7,"value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":65,"method":"tasks/get","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":65,"result":{"handler":"tasks/get","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":66,"method":"tasks/update","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":66,"result":{"handler":"tasks/update","sawTaskId":"t-1","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":67,"method":"tasks/update","params":{"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":67,"result":{"handler":"tasks/update","sawTaskId":7,"value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":68,"method":"tasks/update","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":68,"result":{"handler":"tasks/update","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":69,"method":"tasks/cancel","params":{"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":69,"result":{"handler":"tasks/cancel","sawTaskId":"t-1","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":70,"method":"tasks/cancel","params":{"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":70,"result":{"handler":"tasks/cancel","sawTaskId":7,"value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":71,"method":"tasks/cancel","params":{"value":"v"}}
+s>c {"jsonrpc":"2.0","id":71,"result":{"handler":"tasks/cancel","value":"v","sawTasksDeclared":false}}
+c>s {"jsonrpc":"2.0","id":72,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":72,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":73,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":73,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":74,"method":"tasks/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":74,"error":{"code":-32601,"message":"method not found: \"tasks/list\""}}
+c>s {"jsonrpc":"2.0","id":75,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":75,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":76,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":76,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":77,"method":"tasks/result","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":77,"error":{"code":-32601,"message":"method not found: \"tasks/result\""}}
+c>s {"jsonrpc":"2.0","id":78,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":78,"result":{"handler":"tasks/get","sawTaskId":"t-1","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":79,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":79,"result":{"handler":"tasks/get","sawTaskId":7,"value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":80,"method":"tasks/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":80,"result":{"handler":"tasks/get","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":81,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":81,"result":{"handler":"tasks/update","sawTaskId":"t-1","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":82,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":82,"result":{"handler":"tasks/update","sawTaskId":7,"value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":83,"method":"tasks/update","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":83,"result":{"handler":"tasks/update","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":84,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":"t-1","value":"v"}}
+s>c {"jsonrpc":"2.0","id":84,"result":{"handler":"tasks/cancel","sawTaskId":"t-1","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":85,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"taskId":7,"value":"v"}}
+s>c {"jsonrpc":"2.0","id":85,"result":{"handler":"tasks/cancel","sawTaskId":7,"value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":86,"method":"tasks/cancel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}},"value":"v"}}
+s>c {"jsonrpc":"2.0","id":86,"result":{"handler":"tasks/cancel","value":"v","sawTasksDeclared":true}}
+c>s {"jsonrpc":"2.0","id":87,"method":"resources/subscribe","params":{"uri":"fixture://note"}}
+s>c {"jsonrpc":"2.0","id":87,"result":{}}
+go SubscribeHandler uri=fixture://note
+go ResourceUpdated err=<nil>
+s>c {"jsonrpc":"2.0","method":"notifications/resources/updated","params":{"uri":"fixture://note"}}
+c>s {"jsonrpc":"2.0","id":88,"method":"resources/unsubscribe","params":{"uri":"fixture://note"}}
+s>c {"jsonrpc":"2.0","id":88,"result":{}}
+go UnsubscribeHandler uri=fixture://note
+c>s {"jsonrpc":"2.0","method":"notifications/tasks/status","params":{"taskId":"t-1","status":"working"}}
+c>s {"jsonrpc":"2.0","id":89,"method":"tools/call","params":{"name":"echo","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":89,"result":{"content":[{"type":"text","text":"echo {\"name\":\"echo\",\"arguments\":{}}"}]}}
+c>s <closed>
+go ServerSession.Wait err=<nil>
+s>c <closed>

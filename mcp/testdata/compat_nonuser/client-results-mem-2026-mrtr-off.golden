@@ -1,0 +1,255 @@
+== handshake ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"raw-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","supportedVersions":["2026-07-28"],"capabilities":{"tools":{"listChanged":true},"resources":{"subscribe":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}}}
+== absent/bare ==
+c>s {"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/bare"}}}
+s>c {"jsonrpc":"2.0","id":2,"result":{}}
+go marshal={"content":[]} needsInput=false isError=false content=0
+== absent/content ==
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/content"}}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"hi"}]}}
+go marshal={"content":[{"type":"text","text":"hi"}]} needsInput=false isError=false content=1
+== absent/taskfields ==
+c>s {"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/taskfields"}}}
+s>c {"jsonrpc":"2.0","id":4,"result":{"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[]} needsInput=false isError=false content=0
+== absent/taskid7 ==
+c>s {"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/taskid7"}}}
+s>c {"jsonrpc":"2.0","id":5,"result":{"taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[]} needsInput=false isError=false content=0
+== absent/notaskid ==
+c>s {"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/notaskid"}}}
+s>c {"jsonrpc":"2.0","id":6,"result":{"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[]} needsInput=false isError=false content=0
+== absent/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/content+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}]} needsInput=false isError=false content=1
+== absent/ttlnull ==
+c>s {"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/ttlnull"}}}
+s>c {"jsonrpc":"2.0","id":8,"result":{"taskId":"t-1","status":"working","ttlMs":null}}
+go marshal={"content":[]} needsInput=false isError=false content=0
+== absent/badtypes ==
+c>s {"jsonrpc":"2.0","id":9,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/badtypes"}}}
+s>c {"jsonrpc":"2.0","id":9,"result":{"taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+go marshal={"content":[]} needsInput=false isError=false content=0
+== absent/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/meta+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":10,"result":{"_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"_meta":{"fixture/key":"v"},"content":[]} needsInput=false isError=false content=0
+== absent/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":11,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/full+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":11,"result":{"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true} needsInput=false isError=true content=1
+== absent/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":12,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/inputreq-empty"}}}
+s>c {"jsonrpc":"2.0","id":12,"result":{"inputRequests":{}}}
+go marshal={"content":[],"inputRequests":{}} needsInput=false isError=false content=0
+== absent/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":13,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"absent/inputreq-roots+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":13,"result":{"inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"requestState":"st-1","inputRequests":{"r1":{"method":"roots/list","params":{}}}} needsInput=false isError=false content=0
+== complete/bare ==
+c>s {"jsonrpc":"2.0","id":14,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/bare"}}}
+s>c {"jsonrpc":"2.0","id":14,"result":{"resultType":"complete"}}
+go marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/content ==
+c>s {"jsonrpc":"2.0","id":15,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/content"}}}
+s>c {"jsonrpc":"2.0","id":15,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}]}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"complete"} needsInput=false isError=false content=1
+== complete/taskfields ==
+c>s {"jsonrpc":"2.0","id":16,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/taskfields"}}}
+s>c {"jsonrpc":"2.0","id":16,"result":{"resultType":"complete","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/taskid7 ==
+c>s {"jsonrpc":"2.0","id":17,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/taskid7"}}}
+s>c {"jsonrpc":"2.0","id":17,"result":{"resultType":"complete","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/notaskid ==
+c>s {"jsonrpc":"2.0","id":18,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/notaskid"}}}
+s>c {"jsonrpc":"2.0","id":18,"result":{"resultType":"complete","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":19,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/content+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":19,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"complete"} needsInput=false isError=false content=1
+== complete/ttlnull ==
+c>s {"jsonrpc":"2.0","id":20,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/ttlnull"}}}
+s>c {"jsonrpc":"2.0","id":20,"result":{"resultType":"complete","taskId":"t-1","status":"working","ttlMs":null}}
+go marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/badtypes ==
+c>s {"jsonrpc":"2.0","id":21,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/badtypes"}}}
+s>c {"jsonrpc":"2.0","id":21,"result":{"resultType":"complete","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+go marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":22,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/meta+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":22,"result":{"resultType":"complete","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"_meta":{"fixture/key":"v"},"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+== complete/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":23,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/full+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":23,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"complete"} needsInput=false isError=true content=1
+== complete/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":24,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/inputreq-empty"}}}
+s>c {"jsonrpc":"2.0","id":24,"result":{"resultType":"complete","inputRequests":{}}}
+go marshal={"content":[],"resultType":"complete","inputRequests":{}} needsInput=false isError=false content=0
+== complete/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":25,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/inputreq-roots+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":25,"result":{"resultType":"complete","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"requestState":"st-1","resultType":"complete","inputRequests":{"r1":{"method":"roots/list","params":{}}}} needsInput=false isError=false content=0
+== input_required/bare ==
+c>s {"jsonrpc":"2.0","id":26,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/bare"}}}
+s>c {"jsonrpc":"2.0","id":26,"result":{"resultType":"input_required"}}
+go marshal={"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/content ==
+c>s {"jsonrpc":"2.0","id":27,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/content"}}}
+s>c {"jsonrpc":"2.0","id":27,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}]}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"input_required"} needsInput=true isError=false content=1
+== input_required/taskfields ==
+c>s {"jsonrpc":"2.0","id":28,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/taskfields"}}}
+s>c {"jsonrpc":"2.0","id":28,"result":{"resultType":"input_required","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/taskid7 ==
+c>s {"jsonrpc":"2.0","id":29,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/taskid7"}}}
+s>c {"jsonrpc":"2.0","id":29,"result":{"resultType":"input_required","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/notaskid ==
+c>s {"jsonrpc":"2.0","id":30,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/notaskid"}}}
+s>c {"jsonrpc":"2.0","id":30,"result":{"resultType":"input_required","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":31,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/content+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":31,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"input_required"} needsInput=true isError=false content=1
+== input_required/ttlnull ==
+c>s {"jsonrpc":"2.0","id":32,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/ttlnull"}}}
+s>c {"jsonrpc":"2.0","id":32,"result":{"resultType":"input_required","taskId":"t-1","status":"working","ttlMs":null}}
+go marshal={"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/badtypes ==
+c>s {"jsonrpc":"2.0","id":33,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/badtypes"}}}
+s>c {"jsonrpc":"2.0","id":33,"result":{"resultType":"input_required","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+go marshal={"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":34,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/meta+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":34,"result":{"resultType":"input_required","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"_meta":{"fixture/key":"v"},"content":[],"resultType":"input_required"} needsInput=true isError=false content=0
+== input_required/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":35,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/full+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":35,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"input_required"} needsInput=true isError=true content=1
+== input_required/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":36,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/inputreq-empty"}}}
+s>c {"jsonrpc":"2.0","id":36,"result":{"resultType":"input_required","inputRequests":{}}}
+go marshal={"content":[],"resultType":"input_required","inputRequests":{}} needsInput=true isError=false content=0
+== input_required/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":37,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"input_required/inputreq-roots+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":37,"result":{"resultType":"input_required","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"requestState":"st-1","resultType":"input_required","inputRequests":{"r1":{"method":"roots/list","params":{}}}} needsInput=true isError=false content=0
+== task/bare ==
+c>s {"jsonrpc":"2.0","id":38,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/bare"}}}
+s>c {"jsonrpc":"2.0","id":38,"result":{"resultType":"task"}}
+go marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/content ==
+c>s {"jsonrpc":"2.0","id":39,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/content"}}}
+s>c {"jsonrpc":"2.0","id":39,"result":{"resultType":"task","content":[{"type":"text","text":"hi"}]}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"task"} needsInput=false isError=false content=1
+== task/taskfields ==
+c>s {"jsonrpc":"2.0","id":40,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/taskfields"}}}
+s>c {"jsonrpc":"2.0","id":40,"result":{"resultType":"task","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/taskid7 ==
+c>s {"jsonrpc":"2.0","id":41,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/taskid7"}}}
+s>c {"jsonrpc":"2.0","id":41,"result":{"resultType":"task","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/notaskid ==
+c>s {"jsonrpc":"2.0","id":42,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/notaskid"}}}
+s>c {"jsonrpc":"2.0","id":42,"result":{"resultType":"task","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":43,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/content+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":43,"result":{"resultType":"task","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"task"} needsInput=false isError=false content=1
+== task/ttlnull ==
+c>s {"jsonrpc":"2.0","id":44,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/ttlnull"}}}
+s>c {"jsonrpc":"2.0","id":44,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":null}}
+go marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/badtypes ==
+c>s {"jsonrpc":"2.0","id":45,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/badtypes"}}}
+s>c {"jsonrpc":"2.0","id":45,"result":{"resultType":"task","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+go marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":46,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/meta+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":46,"result":{"resultType":"task","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"_meta":{"fixture/key":"v"},"content":[],"resultType":"task"} needsInput=false isError=false content=0
+== task/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":47,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/full+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":47,"result":{"resultType":"task","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"task"} needsInput=false isError=true content=1
+== task/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":48,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/inputreq-empty"}}}
+s>c {"jsonrpc":"2.0","id":48,"result":{"resultType":"task","inputRequests":{}}}
+go marshal={"content":[],"resultType":"task","inputRequests":{}} needsInput=false isError=false content=0
+== task/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":49,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"task/inputreq-roots+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":49,"result":{"resultType":"task","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"requestState":"st-1","resultType":"task","inputRequests":{"r1":{"method":"roots/list","params":{}}}} needsInput=false isError=false content=0
+== mystery/bare ==
+c>s {"jsonrpc":"2.0","id":50,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/bare"}}}
+s>c {"jsonrpc":"2.0","id":50,"result":{"resultType":"mystery"}}
+go marshal={"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/content ==
+c>s {"jsonrpc":"2.0","id":51,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/content"}}}
+s>c {"jsonrpc":"2.0","id":51,"result":{"resultType":"mystery","content":[{"type":"text","text":"hi"}]}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"mystery"} needsInput=false isError=false content=1
+== mystery/taskfields ==
+c>s {"jsonrpc":"2.0","id":52,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/taskfields"}}}
+s>c {"jsonrpc":"2.0","id":52,"result":{"resultType":"mystery","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/taskid7 ==
+c>s {"jsonrpc":"2.0","id":53,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/taskid7"}}}
+s>c {"jsonrpc":"2.0","id":53,"result":{"resultType":"mystery","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/notaskid ==
+c>s {"jsonrpc":"2.0","id":54,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/notaskid"}}}
+s>c {"jsonrpc":"2.0","id":54,"result":{"resultType":"mystery","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":55,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/content+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":55,"result":{"resultType":"mystery","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"mystery"} needsInput=false isError=false content=1
+== mystery/ttlnull ==
+c>s {"jsonrpc":"2.0","id":56,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/ttlnull"}}}
+s>c {"jsonrpc":"2.0","id":56,"result":{"resultType":"mystery","taskId":"t-1","status":"working","ttlMs":null}}
+go marshal={"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/badtypes ==
+c>s {"jsonrpc":"2.0","id":57,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/badtypes"}}}
+s>c {"jsonrpc":"2.0","id":57,"result":{"resultType":"mystery","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+go marshal={"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":58,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/meta+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":58,"result":{"resultType":"mystery","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"_meta":{"fixture/key":"v"},"content":[],"resultType":"mystery"} needsInput=false isError=false content=0
+== mystery/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":59,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/full+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":59,"result":{"resultType":"mystery","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"mystery"} needsInput=false isError=true content=1
+== mystery/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":60,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/inputreq-empty"}}}
+s>c {"jsonrpc":"2.0","id":60,"result":{"resultType":"mystery","inputRequests":{}}}
+go marshal={"content":[],"resultType":"mystery","inputRequests":{}} needsInput=false isError=false content=0
+== mystery/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":61,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"mystery/inputreq-roots+taskfields"}}}
+s>c {"jsonrpc":"2.0","id":61,"result":{"resultType":"mystery","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+go marshal={"content":[],"requestState":"st-1","resultType":"mystery","inputRequests":{"r1":{"method":"roots/list","params":{}}}} needsInput=false isError=false content=0
+== ordinary calls afterwards ==
+c>s {"jsonrpc":"2.0","id":62,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{"case":"complete/content"}}}
+s>c {"jsonrpc":"2.0","id":62,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}]}}
+go marshal={"content":[{"type":"text","text":"hi"}],"resultType":"complete"} needsInput=false isError=false content=1
+c>s {"jsonrpc":"2.0","id":63,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"plain-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"probe","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":63,"result":{"content":[{"type":"text","text":"no such case"}],"resultType":"complete"}}
+go marshal={"content":[{"type":"text","text":"no such case"}],"resultType":"complete"} needsInput=false isError=false content=1
+go params after CallTool {"name":"probe"}
+go Ping err="ping" is not supported in the new protocol
+== close ==
+c>s <closed>
+go Close err=<nil>

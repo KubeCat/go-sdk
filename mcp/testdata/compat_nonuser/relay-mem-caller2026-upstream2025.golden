@@ -1,0 +1,383 @@
+== upstream handshake ==
+upstream c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"relay-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+upstream s>c {"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"method not found: server/discover"}}
+upstream c>s {"jsonrpc":"2.0","id":2,"method":"initialize","params":{"clientInfo":{"name":"relay-client","version":"v1"},"protocolVersion":"2025-11-25","capabilities":{"roots":{"listChanged":true}}}}
+upstream s>c {"jsonrpc":"2.0","id":2,"result":{"capabilities":{"tools":{"listChanged":true},"resources":{"subscribe":true},"extensions":{"io.modelcontextprotocol/tasks":{}}},"protocolVersion":"2025-11-25","serverInfo":{"name":"raw-server","version":"v1"}}}
+upstream c>s {"jsonrpc":"2.0","method":"notifications/initialized","params":{}}
+== caller handshake ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","supportedVersions":["2026-07-28","2025-11-25","2025-06-18","2025-03-26","2024-11-05"],"capabilities":{"logging":{},"tools":{"listChanged":true}}}}
+== relay-upstream absent/bare ==
+c>s {"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/bare"}}}
+upstream c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":3,"result":{}}
+s>c {"jsonrpc":"2.0","id":2,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/content ==
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/content"}}}
+upstream c>s {"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"hi"}]}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream absent/taskfields ==
+c>s {"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":5,"result":{"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":4,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/taskid7 ==
+c>s {"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/taskid7"}}}
+upstream c>s {"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":6,"result":{"taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":5,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/notaskid ==
+c>s {"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/notaskid"}}}
+upstream c>s {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":7,"result":{"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":6,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/content+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":8,"result":{"content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":7,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream absent/ttlnull ==
+c>s {"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/ttlnull"}}}
+upstream c>s {"jsonrpc":"2.0","id":9,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":9,"result":{"taskId":"t-1","status":"working","ttlMs":null}}
+s>c {"jsonrpc":"2.0","id":8,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/badtypes ==
+c>s {"jsonrpc":"2.0","id":9,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/badtypes"}}}
+upstream c>s {"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":10,"result":{"taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+s>c {"jsonrpc":"2.0","id":9,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":10,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/meta+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":11,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":11,"result":{"_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":10,"result":{"_meta":{"fixture/key":"v","io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream absent/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":11,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/full+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":12,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":12,"result":{"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":11,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"complete"}}
+== relay-upstream absent/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":12,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/inputreq-empty"}}}
+upstream c>s {"jsonrpc":"2.0","id":13,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":13,"result":{"inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":14,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":14,"result":{"inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":15,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":15,"result":{"inputRequests":{}}}
+s>c {"jsonrpc":"2.0","id":12,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream absent/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":13,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"absent/inputreq-roots+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":16,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/inputreq-roots+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":16,"result":{"inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":17,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"absent/inputreq-roots+taskfields"},"inputResponses":{"r1":{"roots":[]}},"requestState":"st-1"}}
+upstream s>c {"jsonrpc":"2.0","id":17,"result":{"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+s>c {"jsonrpc":"2.0","id":13,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+== relay-upstream complete/bare ==
+c>s {"jsonrpc":"2.0","id":14,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/bare"}}}
+upstream c>s {"jsonrpc":"2.0","id":18,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":18,"result":{"resultType":"complete"}}
+s>c {"jsonrpc":"2.0","id":14,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/content ==
+c>s {"jsonrpc":"2.0","id":15,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/content"}}}
+upstream c>s {"jsonrpc":"2.0","id":19,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":19,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}]}}
+s>c {"jsonrpc":"2.0","id":15,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream complete/taskfields ==
+c>s {"jsonrpc":"2.0","id":16,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":20,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":20,"result":{"resultType":"complete","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":16,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/taskid7 ==
+c>s {"jsonrpc":"2.0","id":17,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/taskid7"}}}
+upstream c>s {"jsonrpc":"2.0","id":21,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":21,"result":{"resultType":"complete","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":17,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/notaskid ==
+c>s {"jsonrpc":"2.0","id":18,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/notaskid"}}}
+upstream c>s {"jsonrpc":"2.0","id":22,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":22,"result":{"resultType":"complete","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":18,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":19,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/content+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":23,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":23,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":19,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream complete/ttlnull ==
+c>s {"jsonrpc":"2.0","id":20,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/ttlnull"}}}
+upstream c>s {"jsonrpc":"2.0","id":24,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":24,"result":{"resultType":"complete","taskId":"t-1","status":"working","ttlMs":null}}
+s>c {"jsonrpc":"2.0","id":20,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/badtypes ==
+c>s {"jsonrpc":"2.0","id":21,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/badtypes"}}}
+upstream c>s {"jsonrpc":"2.0","id":25,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":25,"result":{"resultType":"complete","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+s>c {"jsonrpc":"2.0","id":21,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":22,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/meta+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":26,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":26,"result":{"resultType":"complete","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":22,"result":{"_meta":{"fixture/key":"v","io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream complete/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":23,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/full+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":27,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":27,"result":{"resultType":"complete","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":23,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"complete"}}
+== relay-upstream complete/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":24,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/inputreq-empty"}}}
+upstream c>s {"jsonrpc":"2.0","id":28,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":28,"result":{"resultType":"complete","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":29,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":29,"result":{"resultType":"complete","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":30,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":30,"result":{"resultType":"complete","inputRequests":{}}}
+s>c {"jsonrpc":"2.0","id":24,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream complete/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":25,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"complete/inputreq-roots+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":31,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/inputreq-roots+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":31,"result":{"resultType":"complete","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":32,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"complete/inputreq-roots+taskfields"},"inputResponses":{"r1":{"roots":[]}},"requestState":"st-1"}}
+upstream s>c {"jsonrpc":"2.0","id":32,"result":{"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+s>c {"jsonrpc":"2.0","id":25,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+== relay-upstream input_required/bare ==
+c>s {"jsonrpc":"2.0","id":26,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/bare"}}}
+upstream c>s {"jsonrpc":"2.0","id":33,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":33,"result":{"resultType":"input_required"}}
+upstream c>s {"jsonrpc":"2.0","id":34,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":34,"result":{"resultType":"input_required"}}
+upstream c>s {"jsonrpc":"2.0","id":35,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":35,"result":{"resultType":"input_required"}}
+s>c {"jsonrpc":"2.0","id":26,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/content ==
+c>s {"jsonrpc":"2.0","id":27,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/content"}}}
+upstream c>s {"jsonrpc":"2.0","id":36,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":36,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}]}}
+upstream c>s {"jsonrpc":"2.0","id":37,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":37,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}]}}
+upstream c>s {"jsonrpc":"2.0","id":38,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":38,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}]}}
+s>c {"jsonrpc":"2.0","id":27,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/taskfields ==
+c>s {"jsonrpc":"2.0","id":28,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":39,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":39,"result":{"resultType":"input_required","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":40,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":40,"result":{"resultType":"input_required","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":41,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":41,"result":{"resultType":"input_required","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":28,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/taskid7 ==
+c>s {"jsonrpc":"2.0","id":29,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/taskid7"}}}
+upstream c>s {"jsonrpc":"2.0","id":42,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":42,"result":{"resultType":"input_required","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":43,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":43,"result":{"resultType":"input_required","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":44,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":44,"result":{"resultType":"input_required","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":29,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/notaskid ==
+c>s {"jsonrpc":"2.0","id":30,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/notaskid"}}}
+upstream c>s {"jsonrpc":"2.0","id":45,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":45,"result":{"resultType":"input_required","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":46,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":46,"result":{"resultType":"input_required","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":47,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":47,"result":{"resultType":"input_required","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":30,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":31,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/content+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":48,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":48,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":49,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":49,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":50,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":50,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":31,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/ttlnull ==
+c>s {"jsonrpc":"2.0","id":32,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/ttlnull"}}}
+upstream c>s {"jsonrpc":"2.0","id":51,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":51,"result":{"resultType":"input_required","taskId":"t-1","status":"working","ttlMs":null}}
+upstream c>s {"jsonrpc":"2.0","id":52,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":52,"result":{"resultType":"input_required","taskId":"t-1","status":"working","ttlMs":null}}
+upstream c>s {"jsonrpc":"2.0","id":53,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":53,"result":{"resultType":"input_required","taskId":"t-1","status":"working","ttlMs":null}}
+s>c {"jsonrpc":"2.0","id":32,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/badtypes ==
+c>s {"jsonrpc":"2.0","id":33,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/badtypes"}}}
+upstream c>s {"jsonrpc":"2.0","id":54,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":54,"result":{"resultType":"input_required","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+upstream c>s {"jsonrpc":"2.0","id":55,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":55,"result":{"resultType":"input_required","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+upstream c>s {"jsonrpc":"2.0","id":56,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":56,"result":{"resultType":"input_required","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+s>c {"jsonrpc":"2.0","id":33,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":34,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/meta+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":57,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":57,"result":{"resultType":"input_required","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":58,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":58,"result":{"resultType":"input_required","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":59,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":59,"result":{"resultType":"input_required","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":34,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":35,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/full+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":60,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":60,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":61,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":61,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":62,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":62,"result":{"resultType":"input_required","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":35,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":36,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/inputreq-empty"}}}
+upstream c>s {"jsonrpc":"2.0","id":63,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":63,"result":{"resultType":"input_required","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":64,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":64,"result":{"resultType":"input_required","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":65,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":65,"result":{"resultType":"input_required","inputRequests":{}}}
+s>c {"jsonrpc":"2.0","id":36,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream input_required/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":37,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"input_required/inputreq-roots+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":66,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/inputreq-roots+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":66,"result":{"resultType":"input_required","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":67,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"input_required/inputreq-roots+taskfields"},"inputResponses":{"r1":{"roots":[]}},"requestState":"st-1"}}
+upstream s>c {"jsonrpc":"2.0","id":67,"result":{"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+s>c {"jsonrpc":"2.0","id":37,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+== relay-upstream task/bare ==
+c>s {"jsonrpc":"2.0","id":38,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/bare"}}}
+upstream c>s {"jsonrpc":"2.0","id":68,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":68,"result":{"resultType":"task"}}
+s>c {"jsonrpc":"2.0","id":38,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/content ==
+c>s {"jsonrpc":"2.0","id":39,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/content"}}}
+upstream c>s {"jsonrpc":"2.0","id":69,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":69,"result":{"resultType":"task","content":[{"type":"text","text":"hi"}]}}
+s>c {"jsonrpc":"2.0","id":39,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream task/taskfields ==
+c>s {"jsonrpc":"2.0","id":40,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":70,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":70,"result":{"resultType":"task","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":40,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/taskid7 ==
+c>s {"jsonrpc":"2.0","id":41,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/taskid7"}}}
+upstream c>s {"jsonrpc":"2.0","id":71,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":71,"result":{"resultType":"task","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":41,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/notaskid ==
+c>s {"jsonrpc":"2.0","id":42,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/notaskid"}}}
+upstream c>s {"jsonrpc":"2.0","id":72,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":72,"result":{"resultType":"task","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":42,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":43,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/content+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":73,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":73,"result":{"resultType":"task","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":43,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream task/ttlnull ==
+c>s {"jsonrpc":"2.0","id":44,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/ttlnull"}}}
+upstream c>s {"jsonrpc":"2.0","id":74,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":74,"result":{"resultType":"task","taskId":"t-1","status":"working","ttlMs":null}}
+s>c {"jsonrpc":"2.0","id":44,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/badtypes ==
+c>s {"jsonrpc":"2.0","id":45,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/badtypes"}}}
+upstream c>s {"jsonrpc":"2.0","id":75,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":75,"result":{"resultType":"task","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+s>c {"jsonrpc":"2.0","id":45,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":46,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/meta+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":76,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":76,"result":{"resultType":"task","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":46,"result":{"_meta":{"fixture/key":"v","io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream task/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":47,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/full+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":77,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":77,"result":{"resultType":"task","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":47,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"complete"}}
+== relay-upstream task/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":48,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/inputreq-empty"}}}
+upstream c>s {"jsonrpc":"2.0","id":78,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":78,"result":{"resultType":"task","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":79,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":79,"result":{"resultType":"task","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":80,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":80,"result":{"resultType":"task","inputRequests":{}}}
+s>c {"jsonrpc":"2.0","id":48,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream task/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":49,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"task/inputreq-roots+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":81,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/inputreq-roots+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":81,"result":{"resultType":"task","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":82,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"task/inputreq-roots+taskfields"},"inputResponses":{"r1":{"roots":[]}},"requestState":"st-1"}}
+upstream s>c {"jsonrpc":"2.0","id":82,"result":{"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+s>c {"jsonrpc":"2.0","id":49,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+== relay-upstream mystery/bare ==
+c>s {"jsonrpc":"2.0","id":50,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/bare"}}}
+upstream c>s {"jsonrpc":"2.0","id":83,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/bare"}}}
+upstream s>c {"jsonrpc":"2.0","id":83,"result":{"resultType":"mystery"}}
+s>c {"jsonrpc":"2.0","id":50,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/content ==
+c>s {"jsonrpc":"2.0","id":51,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/content"}}}
+upstream c>s {"jsonrpc":"2.0","id":84,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/content"}}}
+upstream s>c {"jsonrpc":"2.0","id":84,"result":{"resultType":"mystery","content":[{"type":"text","text":"hi"}]}}
+s>c {"jsonrpc":"2.0","id":51,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream mystery/taskfields ==
+c>s {"jsonrpc":"2.0","id":52,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":85,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":85,"result":{"resultType":"mystery","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":52,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/taskid7 ==
+c>s {"jsonrpc":"2.0","id":53,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/taskid7"}}}
+upstream c>s {"jsonrpc":"2.0","id":86,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/taskid7"}}}
+upstream s>c {"jsonrpc":"2.0","id":86,"result":{"resultType":"mystery","taskId":7,"status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":53,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/notaskid ==
+c>s {"jsonrpc":"2.0","id":54,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/notaskid"}}}
+upstream c>s {"jsonrpc":"2.0","id":87,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/notaskid"}}}
+upstream s>c {"jsonrpc":"2.0","id":87,"result":{"resultType":"mystery","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":54,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/content+taskfields ==
+c>s {"jsonrpc":"2.0","id":55,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/content+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":88,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/content+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":88,"result":{"resultType":"mystery","content":[{"type":"text","text":"hi"}],"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":55,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"resultType":"complete"}}
+== relay-upstream mystery/ttlnull ==
+c>s {"jsonrpc":"2.0","id":56,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/ttlnull"}}}
+upstream c>s {"jsonrpc":"2.0","id":89,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/ttlnull"}}}
+upstream s>c {"jsonrpc":"2.0","id":89,"result":{"resultType":"mystery","taskId":"t-1","status":"working","ttlMs":null}}
+s>c {"jsonrpc":"2.0","id":56,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/badtypes ==
+c>s {"jsonrpc":"2.0","id":57,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/badtypes"}}}
+upstream c>s {"jsonrpc":"2.0","id":90,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/badtypes"}}}
+upstream s>c {"jsonrpc":"2.0","id":90,"result":{"resultType":"mystery","taskId":"t-1","status":5,"createdAt":12,"ttlMs":"soon","pollIntervalMs":"often"}}
+s>c {"jsonrpc":"2.0","id":57,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/meta+taskfields ==
+c>s {"jsonrpc":"2.0","id":58,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/meta+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":91,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/meta+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":91,"result":{"resultType":"mystery","_meta":{"fixture/key":"v"},"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":58,"result":{"_meta":{"fixture/key":"v","io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[],"resultType":"complete"}}
+== relay-upstream mystery/full+taskfields ==
+c>s {"jsonrpc":"2.0","id":59,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/full+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":92,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/full+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":92,"result":{"resultType":"mystery","content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+s>c {"jsonrpc":"2.0","id":59,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"hi"}],"structuredContent":{"a":1},"isError":true,"resultType":"complete"}}
+== relay-upstream mystery/inputreq-empty ==
+c>s {"jsonrpc":"2.0","id":60,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/inputreq-empty"}}}
+upstream c>s {"jsonrpc":"2.0","id":93,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":93,"result":{"resultType":"mystery","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":94,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":94,"result":{"resultType":"mystery","inputRequests":{}}}
+upstream c>s {"jsonrpc":"2.0","id":95,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/inputreq-empty"}}}
+upstream s>c {"jsonrpc":"2.0","id":95,"result":{"resultType":"mystery","inputRequests":{}}}
+s>c {"jsonrpc":"2.0","id":60,"error":{"code":-32603,"message":"multi-round-trip: exceeded maximum load-shedding retries (3)"}}
+== relay-upstream mystery/inputreq-roots+taskfields ==
+c>s {"jsonrpc":"2.0","id":61,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"relay-upstream","arguments":{"case":"mystery/inputreq-roots+taskfields"}}}
+upstream c>s {"jsonrpc":"2.0","id":96,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/inputreq-roots+taskfields"}}}
+upstream s>c {"jsonrpc":"2.0","id":96,"result":{"resultType":"mystery","inputRequests":{"r1":{"method":"roots/list","params":{}}},"requestState":"st-1","taskId":"t-1","status":"working","statusMessage":"busy","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z","ttlMs":60000,"pollIntervalMs":500}}
+upstream c>s {"jsonrpc":"2.0","id":97,"method":"tools/call","params":{"name":"upstream","arguments":{"case":"mystery/inputreq-roots+taskfields"},"inputResponses":{"r1":{"roots":[]}},"requestState":"st-1"}}
+upstream s>c {"jsonrpc":"2.0","id":97,"result":{"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+s>c {"jsonrpc":"2.0","id":61,"result":{"_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"content":[{"type":"text","text":"after-input"}],"resultType":"complete"}}
+== ordinary call afterwards ==
+c>s {"jsonrpc":"2.0","id":62,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"raw-caller","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":62,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"relay-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","tools":[{"inputSchema":{"type":"object"},"name":"relay-json"},{"inputSchema":{"type":"object","additionalProperties":true},"name":"relay-typed"},{"inputSchema":{"type":"object"},"name":"relay-upstream"}]}}
+c>s <closed>

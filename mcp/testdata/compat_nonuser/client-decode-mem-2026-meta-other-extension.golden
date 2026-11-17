@@ -1,0 +1,618 @@
+== handshake ==
+c>s {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":1,"result":{"resultType":"complete","_meta":{"io.modelcontextprotocol/serverInfo":{"name":"raw-server","version":"v1"}},"ttlMs":0,"cacheScope":"public","supportedVersions":["2026-07-28"],"capabilities":{"tools":{"listChanged":true},"resources":{"subscribe":true},"extensions":{"io.modelcontextprotocol/tasks":{}}}}}
+c>s {"jsonrpc":"2.0","id":2,"method":"subscriptions/listen","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"notifications":{"toolsListChanged":true}}}
+s>c {"jsonrpc":"2.0","id":2,"error":{"code":-32603,"message":"no subscriptions here"}}
+go Ping after Connect: err="ping" is not supported in the new protocol
+== ok ==
+c>s {"jsonrpc":"2.0","id":3,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":3,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go ListTools: {"ttlMs":0,"cacheScope":"","nextCursor":"c","tools":[{"inputSchema":{"type":"object"},"name":"a"}]}
+c>s {"jsonrpc":"2.0","id":4,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":4,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","nextCursor":"c","prompts":[{"name":"p"}]}
+c>s {"jsonrpc":"2.0","id":5,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":5,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go ListResources: {"ttlMs":0,"cacheScope":"","nextCursor":"c","resources":[{"name":"r","uri":"file:///a"}]}
+c>s {"jsonrpc":"2.0","id":6,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":6,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","nextCursor":"c","resourceTemplates":[{"name":"rt","uriTemplate":"file:///{a}"}]}
+c>s {"jsonrpc":"2.0","id":7,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":7,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go GetPrompt: {"messages":[{"content":{"type":"text","text":"hi"},"role":"user"}]}
+c>s {"jsonrpc":"2.0","id":8,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":8,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":[{"uri":"file:///a","text":"x"}]}
+c>s {"jsonrpc":"2.0","id":9,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":9,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go Complete: {"completion":{"values":["v"]}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":10,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":10,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":11,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":11,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":12,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":12,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+c>s {"jsonrpc":"2.0","id":13,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"c"}}
+s>c {"jsonrpc":"2.0","id":13,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+c>s {"jsonrpc":"2.0","id":14,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"c"}}
+s>c {"jsonrpc":"2.0","id":14,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+c>s {"jsonrpc":"2.0","id":15,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"c"}}
+s>c {"jsonrpc":"2.0","id":15,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"prompts":[{"name":"p"}],"resources":[{"uri":"file:///a","name":"r"}],"resourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"contents":[{"uri":"file:///a","text":"x"}],"completion":{"values":["v"]},"nextCursor":"c"}}
+go Tools: a,a,a,a,(stopped by the test)
+== upper-keys ==
+c>s {"jsonrpc":"2.0","id":16,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":16,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go ListTools: {"ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":17,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":17,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":18,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":18,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go ListResources: {"ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":19,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":19,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":20,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":20,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":21,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":21,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":22,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":22,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":23,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":23,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":24,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":24,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":25,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":25,"result":{"Tools":[{"Name":"a","InputSchema":{"type":"object"}}],"PROMPTS":[{"NAME":"p"}],"Resources":[{"URI":"file:///a","Name":"r"}],"ResourceTemplates":[{"uriTemplate":"file:///{a}","name":"rt"}],"Messages":[{"role":"user","content":{"type":"text","text":"hi"}}],"Contents":[{"uri":"file:///a","text":"x"}],"Completion":{"Values":["v"]},"NextCursor":"c","_META":{"k":1}}}
+go Tools: 
+== mixed-keys ==
+c>s {"jsonrpc":"2.0","id":26,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":26,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go ListTools: {"ttlMs":0,"cacheScope":"","tools":[{"inputSchema":null,"name":""}]}
+c>s {"jsonrpc":"2.0","id":27,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":27,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","prompts":[{"name":""}]}
+c>s {"jsonrpc":"2.0","id":28,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":28,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go ListResources: {"ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":29,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":29,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":30,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":30,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":31,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":31,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":32,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":32,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":33,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":33,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":34,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":34,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":35,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":35,"result":{"tools":[{"NAME":"a","inputschema":{"type":"object"},"Description":"d"}],"prompts":[{"Name":"p","Title":"t"}],"nextcursor":"c","completion":{"VALUES":["v"],"Total":3}}}
+go Tools: ,
+== shadowed-keys ==
+c>s {"jsonrpc":"2.0","id":36,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":36,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go ListTools: {"ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":37,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":37,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":38,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":38,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go ListResources: {"ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":39,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":39,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":40,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":40,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":41,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":41,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":42,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":42,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":43,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":43,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":44,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":44,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":45,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":45,"result":{"tools":[],"NextCursor":"smuggled","Tools":[{"name":"x","inputSchema":{"type":"object"}}]}}
+go Tools: 
+== wrong-types ==
+c>s {"jsonrpc":"2.0","id":46,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":46,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go ListTools: err="calling \"tools/list\": json: cannot unmarshal \"7,\\\"prompts\\\":\\\"x\\\",\\\"resources\\\":{},\\\"...\" into Go struct field mcp.ListToolsResult.tools of type []*mcp.Tool"
+c>s {"jsonrpc":"2.0","id":47,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":47,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go ListPrompts: err="calling \"prompts/list\": json: cannot unmarshal \"\\\"x\\\",\\\"resources\\\":{},\\\"messages\\\":7,...\" into Go struct field mcp.ListPromptsResult.prompts of type []*mcp.Prompt"
+c>s {"jsonrpc":"2.0","id":48,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":48,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go ListResources: err="calling \"resources/list\": json: cannot unmarshal \"{},\\\"messages\\\":7,\\\"contents\\\":7,\\\"co...\" into Go struct field mcp.ListResourcesResult.resources of type []*mcp.Resource"
+c>s {"jsonrpc":"2.0","id":49,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":49,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":50,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":50,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go GetPrompt: err="calling \"prompts/get\": json: cannot unmarshal \"7,\\\"contents\\\":7,\\\"completion\\\":7}\" into Go struct field struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }.messages of type []*mcp.PromptMessage"
+c>s {"jsonrpc":"2.0","id":51,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":51,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go ReadResource: err="calling \"resources/read\": json: cannot unmarshal \"7,\\\"completion\\\":7}\" into Go struct field struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }.contents of type []*mcp.ResourceContents"
+c>s {"jsonrpc":"2.0","id":52,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":52,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go Complete: err="calling \"completion/complete\": json: cannot unmarshal \"7}\" into Go struct field mcp.CompleteResult.completion of type mcp.CompletionResultDetails"
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":53,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":53,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":54,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":54,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":55,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":55,"result":{"tools":7,"prompts":"x","resources":{},"messages":7,"contents":7,"completion":7}}
+go Tools: err="calling \"tools/list\": json: cannot unmarshal \"7,\\\"prompts\\\":\\\"x\\\",\\\"resources\\\":{},\\\"...\" into Go struct field mcp.ListToolsResult.tools of type []*mcp.Tool"
+== null ==
+c>s {"jsonrpc":"2.0","id":56,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":56,"result":null}
+go ListTools: {"ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":57,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":57,"result":null}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":58,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":58,"result":null}
+go ListResources: {"ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":59,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":59,"result":null}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":60,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":60,"result":null}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":61,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":61,"result":null}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":62,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":62,"result":null}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":63,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":63,"result":null}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":64,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":64,"result":null}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":65,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":65,"result":null}
+go Tools: 
+== seven ==
+c>s {"jsonrpc":"2.0","id":66,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":66,"result":7}
+go ListTools: err="calling \"tools/list\": json: cannot unmarshal \"7\" into Go value of type mcp.ListToolsResult"
+c>s {"jsonrpc":"2.0","id":67,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":67,"result":7}
+go ListPrompts: err="calling \"prompts/list\": json: cannot unmarshal \"7\" into Go value of type mcp.ListPromptsResult"
+c>s {"jsonrpc":"2.0","id":68,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":68,"result":7}
+go ListResources: err="calling \"resources/list\": json: cannot unmarshal \"7\" into Go value of type mcp.ListResourcesResult"
+c>s {"jsonrpc":"2.0","id":69,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":69,"result":7}
+go ListResourceTemplates: err="calling \"resources/templates/list\": json: cannot unmarshal \"7\" into Go value of type mcp.ListResourceTemplatesResult"
+c>s {"jsonrpc":"2.0","id":70,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":70,"result":7}
+go GetPrompt: err="calling \"prompts/get\": json: cannot unmarshal \"7\" into Go value of type struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":71,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":71,"result":7}
+go ReadResource: err="calling \"resources/read\": json: cannot unmarshal \"7\" into Go value of type struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":72,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":72,"result":7}
+go Complete: err="calling \"completion/complete\": json: cannot unmarshal \"7\" into Go value of type mcp.CompleteResult"
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":73,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":73,"result":7}
+go SetLoggingLevel: err=calling "logging/setLevel": json: cannot unmarshal "7" into Go value of type mcp.emptyResult
+c>s {"jsonrpc":"2.0","id":74,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":74,"result":7}
+go CallTool: err="calling \"tools/call\": json: cannot unmarshal \"7\" into Go value of type struct { mcp.res; Content []*mcp.wireContent \"json:\\\"content\\\"\"; StructuredContent json.RawMessage \"json:\\\"structuredContent\\\"\"; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":75,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":75,"result":7}
+go Tools: err="calling \"tools/list\": json: cannot unmarshal \"7\" into Go value of type mcp.ListToolsResult"
+== array ==
+c>s {"jsonrpc":"2.0","id":76,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":76,"result":[]}
+go ListTools: err="calling \"tools/list\": json: cannot unmarshal \"[]\" into Go value of type mcp.ListToolsResult"
+c>s {"jsonrpc":"2.0","id":77,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":77,"result":[]}
+go ListPrompts: err="calling \"prompts/list\": json: cannot unmarshal \"[]\" into Go value of type mcp.ListPromptsResult"
+c>s {"jsonrpc":"2.0","id":78,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":78,"result":[]}
+go ListResources: err="calling \"resources/list\": json: cannot unmarshal \"[]\" into Go value of type mcp.ListResourcesResult"
+c>s {"jsonrpc":"2.0","id":79,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":79,"result":[]}
+go ListResourceTemplates: err="calling \"resources/templates/list\": json: cannot unmarshal \"[]\" into Go value of type mcp.ListResourceTemplatesResult"
+c>s {"jsonrpc":"2.0","id":80,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":80,"result":[]}
+go GetPrompt: err="calling \"prompts/get\": json: cannot unmarshal \"[]\" into Go value of type struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":81,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":81,"result":[]}
+go ReadResource: err="calling \"resources/read\": json: cannot unmarshal \"[]\" into Go value of type struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":82,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":82,"result":[]}
+go Complete: err="calling \"completion/complete\": json: cannot unmarshal \"[]\" into Go value of type mcp.CompleteResult"
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":83,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":83,"result":[]}
+go SetLoggingLevel: err=calling "logging/setLevel": json: cannot unmarshal "[]" into Go value of type mcp.emptyResult
+c>s {"jsonrpc":"2.0","id":84,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":84,"result":[]}
+go CallTool: err="calling \"tools/call\": json: cannot unmarshal \"[]\" into Go value of type struct { mcp.res; Content []*mcp.wireContent \"json:\\\"content\\\"\"; StructuredContent json.RawMessage \"json:\\\"structuredContent\\\"\"; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":85,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":85,"result":[]}
+go Tools: err="calling \"tools/list\": json: cannot unmarshal \"[]\" into Go value of type mcp.ListToolsResult"
+== string ==
+c>s {"jsonrpc":"2.0","id":86,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":86,"result":"x"}
+go ListTools: err="calling \"tools/list\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type mcp.ListToolsResult"
+c>s {"jsonrpc":"2.0","id":87,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":87,"result":"x"}
+go ListPrompts: err="calling \"prompts/list\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type mcp.ListPromptsResult"
+c>s {"jsonrpc":"2.0","id":88,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":88,"result":"x"}
+go ListResources: err="calling \"resources/list\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type mcp.ListResourcesResult"
+c>s {"jsonrpc":"2.0","id":89,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":89,"result":"x"}
+go ListResourceTemplates: err="calling \"resources/templates/list\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type mcp.ListResourceTemplatesResult"
+c>s {"jsonrpc":"2.0","id":90,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":90,"result":"x"}
+go GetPrompt: err="calling \"prompts/get\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":91,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":91,"result":"x"}
+go ReadResource: err="calling \"resources/read\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":92,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":92,"result":"x"}
+go Complete: err="calling \"completion/complete\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type mcp.CompleteResult"
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":93,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":93,"result":"x"}
+go SetLoggingLevel: err=calling "logging/setLevel": json: cannot unmarshal "\"x\"" into Go value of type mcp.emptyResult
+c>s {"jsonrpc":"2.0","id":94,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":94,"result":"x"}
+go CallTool: err="calling \"tools/call\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type struct { mcp.res; Content []*mcp.wireContent \"json:\\\"content\\\"\"; StructuredContent json.RawMessage \"json:\\\"structuredContent\\\"\"; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }"
+c>s {"jsonrpc":"2.0","id":95,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":95,"result":"x"}
+go Tools: err="calling \"tools/list\": json: cannot unmarshal \"\\\"x\\\"\" into Go value of type mcp.ListToolsResult"
+== dup-keys ==
+c>s {"jsonrpc":"2.0","id":96,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":96,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go ListTools: {"ttlMs":0,"cacheScope":"","nextCursor":"2","tools":[{"inputSchema":{"type":"object"},"name":"b"}]}
+c>s {"jsonrpc":"2.0","id":97,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":97,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","nextCursor":"2","prompts":null}
+c>s {"jsonrpc":"2.0","id":98,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":98,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go ListResources: {"ttlMs":0,"cacheScope":"","nextCursor":"2","resources":null}
+c>s {"jsonrpc":"2.0","id":99,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":99,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","nextCursor":"2","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":100,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":100,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":101,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":101,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":102,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":102,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":103,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":103,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":104,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":104,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":105,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":105,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+c>s {"jsonrpc":"2.0","id":106,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"2"}}
+s>c {"jsonrpc":"2.0","id":106,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+c>s {"jsonrpc":"2.0","id":107,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"2"}}
+s>c {"jsonrpc":"2.0","id":107,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+c>s {"jsonrpc":"2.0","id":108,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"2"}}
+s>c {"jsonrpc":"2.0","id":108,"result":{"tools":[{"name":"a","inputSchema":{"type":"object"}}],"tools":[{"name":"b","inputSchema":{"type":"object"}}],"nextCursor":"1","nextCursor":"2"}}
+go Tools: b,b,b,b,(stopped by the test)
+== bad-utf8 ==
+c>s {"jsonrpc":"2.0","id":109,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":109,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go ListTools: {"ttlMs":0,"cacheScope":"","nextCursor":"aï¿½b","tools":[{"inputSchema":{"type":"object"},"name":"aï¿½b"}]}
+c>s {"jsonrpc":"2.0","id":110,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":110,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","nextCursor":"aï¿½b","prompts":null}
+c>s {"jsonrpc":"2.0","id":111,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":111,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go ListResources: {"ttlMs":0,"cacheScope":"","nextCursor":"aï¿½b","resources":null}
+c>s {"jsonrpc":"2.0","id":112,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":112,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","nextCursor":"aï¿½b","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":113,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":113,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":114,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":114,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":115,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":115,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":116,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":116,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":117,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":117,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":118,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":118,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+c>s {"jsonrpc":"2.0","id":119,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"aï¿½b"}}
+s>c {"jsonrpc":"2.0","id":119,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+c>s {"jsonrpc":"2.0","id":120,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"aï¿½b"}}
+s>c {"jsonrpc":"2.0","id":120,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+c>s {"jsonrpc":"2.0","id":121,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"cursor":"aï¿½b"}}
+s>c {"jsonrpc":"2.0","id":121,"result":{"nextCursor":"aÿb","tools":[{"name":"aÿb","inputSchema":{"type":"object"}}]}}
+go Tools: aï¿½b,aï¿½b,aï¿½b,aï¿½b,(stopped by the test)
+== result-type-wrong-case ==
+c>s {"jsonrpc":"2.0","id":122,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":122,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListTools: {"ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":123,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":123,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListPrompts: {"ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":124,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":124,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListResources: {"ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":125,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":125,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":126,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":126,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":127,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":127,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":128,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":128,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":129,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":129,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":130,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":130,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":131,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":131,"result":{"ResultType":"task","RESULTTYPE":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go Tools: 
+== result-type-number ==
+c>s {"jsonrpc":"2.0","id":132,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":132,"result":{"resultType":7,"tools":[]}}
+go ListTools: err="calling \"tools/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListToolsResult.resultType of type string"
+c>s {"jsonrpc":"2.0","id":133,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":133,"result":{"resultType":7,"tools":[]}}
+go ListPrompts: err="calling \"prompts/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListPromptsResult.resultType of type string"
+c>s {"jsonrpc":"2.0","id":134,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":134,"result":{"resultType":7,"tools":[]}}
+go ListResources: err="calling \"resources/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListResourcesResult.resultType of type string"
+c>s {"jsonrpc":"2.0","id":135,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":135,"result":{"resultType":7,"tools":[]}}
+go ListResourceTemplates: err="calling \"resources/templates/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListResourceTemplatesResult.resultType of type string"
+c>s {"jsonrpc":"2.0","id":136,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":136,"result":{"resultType":7,"tools":[]}}
+go GetPrompt: err="calling \"prompts/get\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }.resultType of type string"
+c>s {"jsonrpc":"2.0","id":137,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":137,"result":{"resultType":7,"tools":[]}}
+go ReadResource: err="calling \"resources/read\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }.resultType of type string"
+c>s {"jsonrpc":"2.0","id":138,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":138,"result":{"resultType":7,"tools":[]}}
+go Complete: err="calling \"completion/complete\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.CompleteResult.resultType of type string"
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":139,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":139,"result":{"resultType":7,"tools":[]}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":140,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":140,"result":{"resultType":7,"tools":[]}}
+go CallTool: err="calling \"tools/call\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field struct { mcp.res; Content []*mcp.wireContent \"json:\\\"content\\\"\"; StructuredContent json.RawMessage \"json:\\\"structuredContent\\\"\"; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }.resultType of type string"
+c>s {"jsonrpc":"2.0","id":141,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":141,"result":{"resultType":7,"tools":[]}}
+go Tools: err="calling \"tools/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListToolsResult.resultType of type string"
+== result-type-complete-with-task-fields ==
+c>s {"jsonrpc":"2.0","id":142,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":142,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListTools: {"resultType":"complete","ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":143,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":143,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListPrompts: {"resultType":"complete","ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":144,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":144,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListResources: {"resultType":"complete","ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":145,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":145,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListResourceTemplates: {"resultType":"complete","ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":146,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":146,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go GetPrompt: {"messages":null,"resultType":"complete"}
+c>s {"jsonrpc":"2.0","id":147,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":147,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null,"resultType":"complete"}
+c>s {"jsonrpc":"2.0","id":148,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":148,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go Complete: {"resultType":"complete","completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":149,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":149,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":150,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":150,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go CallTool: marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":151,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":151,"result":{"resultType":"complete","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go Tools: 
+== task-fields-wrong-case ==
+c>s {"jsonrpc":"2.0","id":152,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":152,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go ListTools: {"resultType":"complete","ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":153,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":153,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go ListPrompts: {"resultType":"complete","ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":154,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":154,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go ListResources: {"resultType":"complete","ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":155,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":155,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go ListResourceTemplates: {"resultType":"complete","ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":156,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":156,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go GetPrompt: {"messages":null,"resultType":"complete"}
+c>s {"jsonrpc":"2.0","id":157,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":157,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null,"resultType":"complete"}
+c>s {"jsonrpc":"2.0","id":158,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":158,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go Complete: {"resultType":"complete","completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":159,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":159,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":160,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":160,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go CallTool: marshal={"content":[],"resultType":"complete"} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":161,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":161,"result":{"resultType":"complete","TaskId":"t-1","STATUS":"working","tools":[]}}
+go Tools: 
+== meta-number ==
+c>s {"jsonrpc":"2.0","id":162,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":162,"result":{"_meta":7,"tools":[]}}
+go ListTools: err="calling \"tools/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListToolsResult._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":163,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":163,"result":{"_meta":7,"tools":[]}}
+go ListPrompts: err="calling \"prompts/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListPromptsResult._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":164,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":164,"result":{"_meta":7,"tools":[]}}
+go ListResources: err="calling \"resources/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListResourcesResult._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":165,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":165,"result":{"_meta":7,"tools":[]}}
+go ListResourceTemplates: err="calling \"resources/templates/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListResourceTemplatesResult._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":166,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":166,"result":{"_meta":7,"tools":[]}}
+go GetPrompt: err="calling \"prompts/get\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":167,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":167,"result":{"_meta":7,"tools":[]}}
+go ReadResource: err="calling \"resources/read\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field struct { mcp.res; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":168,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":168,"result":{"_meta":7,"tools":[]}}
+go Complete: err="calling \"completion/complete\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.CompleteResult._meta of type map[string]interface {}"
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":169,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":169,"result":{"_meta":7,"tools":[]}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":170,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":170,"result":{"_meta":7,"tools":[]}}
+go CallTool: err="calling \"tools/call\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field struct { mcp.res; Content []*mcp.wireContent \"json:\\\"content\\\"\"; StructuredContent json.RawMessage \"json:\\\"structuredContent\\\"\"; ResultType mcp.resultType \"json:\\\"resultType\\\"\" }._meta of type map[string]interface {}"
+c>s {"jsonrpc":"2.0","id":171,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":171,"result":{"_meta":7,"tools":[]}}
+go Tools: err="calling \"tools/list\": json: cannot unmarshal \"7,\\\"tools\\\":[]}\" into Go struct field mcp.ListToolsResult._meta of type map[string]interface {}"
+== trailing-space ==
+c>s {"jsonrpc":"2.0","id":172,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":172,"result":{"tools":[]} }
+go ListTools: {"ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":173,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":173,"result":{"tools":[]} }
+go ListPrompts: {"ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":174,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":174,"result":{"tools":[]} }
+go ListResources: {"ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":175,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":175,"result":{"tools":[]} }
+go ListResourceTemplates: {"ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":176,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":176,"result":{"tools":[]} }
+go GetPrompt: {"messages":null}
+c>s {"jsonrpc":"2.0","id":177,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":177,"result":{"tools":[]} }
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null}
+c>s {"jsonrpc":"2.0","id":178,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":178,"result":{"tools":[]} }
+go Complete: {"completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":179,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":179,"result":{"tools":[]} }
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":180,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":180,"result":{"tools":[]} }
+go CallTool: marshal={"content":[]} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":181,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":181,"result":{"tools":[]} }
+go Tools: 
+== task ==
+c>s {"jsonrpc":"2.0","id":182,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":182,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListTools: {"resultType":"task","ttlMs":0,"cacheScope":"","tools":[]}
+c>s {"jsonrpc":"2.0","id":183,"method":"prompts/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":183,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListPrompts: {"resultType":"task","ttlMs":0,"cacheScope":"","prompts":null}
+c>s {"jsonrpc":"2.0","id":184,"method":"resources/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":184,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListResources: {"resultType":"task","ttlMs":0,"cacheScope":"","resources":null}
+c>s {"jsonrpc":"2.0","id":185,"method":"resources/templates/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":185,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ListResourceTemplates: {"resultType":"task","ttlMs":0,"cacheScope":"","resourceTemplates":null}
+c>s {"jsonrpc":"2.0","id":186,"method":"prompts/get","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"p"}}
+s>c {"jsonrpc":"2.0","id":186,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go GetPrompt: {"messages":null,"resultType":"task"}
+c>s {"jsonrpc":"2.0","id":187,"method":"resources/read","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"uri":"file:///a"}}
+s>c {"jsonrpc":"2.0","id":187,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go ReadResource: {"ttlMs":0,"cacheScope":"","contents":null,"resultType":"task"}
+c>s {"jsonrpc":"2.0","id":188,"method":"completion/complete","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"argument":{"name":"a","value":"v"},"ref":{"type":"ref/prompt","name":"p"}}}
+s>c {"jsonrpc":"2.0","id":188,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go Complete: {"resultType":"task","completion":{"values":null}}
+go Ping: err="ping" is not supported in the new protocol
+go Ping without params: err="ping" is not supported in the new protocol
+c>s {"jsonrpc":"2.0","id":189,"method":"logging/setLevel","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}}},"level":"info"}}
+s>c {"jsonrpc":"2.0","id":189,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go SetLoggingLevel: err=<nil>
+c>s {"jsonrpc":"2.0","id":190,"method":"tools/call","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"extensions":{"example.test/other":{}}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"},"name":"a","arguments":{}}}
+s>c {"jsonrpc":"2.0","id":190,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go CallTool: marshal={"content":[],"resultType":"task"} needsInput=false isError=false content=0
+c>s {"jsonrpc":"2.0","id":191,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/clientCapabilities":{"roots":{"listChanged":true}},"io.modelcontextprotocol/clientInfo":{"name":"decode-client","version":"v1"},"io.modelcontextprotocol/protocolVersion":"2026-07-28"}}}
+s>c {"jsonrpc":"2.0","id":191,"result":{"resultType":"task","taskId":"t-1","status":"working","createdAt":"2026-01-02T03:04:05Z","lastUpdatedAt":"2026-01-02T03:04:06Z"}}
+go Tools: 

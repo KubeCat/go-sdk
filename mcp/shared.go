@@ -134,6 +134,9 @@ func addMiddleware(handlerp *MethodHandler, middleware []Middleware) {
 }
 
 func defaultSendingMethodHandler(ctx context.Context, method string, req Request) (Result, error) {
+	if send := taskSendFromContext(ctx, method, req); send != nil {
+		return send(ctx, req)
+	}
 	info, ok := req.GetSession().sendingMethodInfos()[method]
 	if !ok {
 		// This can be called from user code, with an arbitrary value for method.

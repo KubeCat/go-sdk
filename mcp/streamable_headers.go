@@ -237,6 +237,9 @@ func setStandardHeaders(ctx context.Context, header http.Header, msg jsonrpc.Mes
 				header.Set(nameHeader, encoded)
 			}
 		}
+		if name, ok := taskNameFromContext(ctx, msg.Method); ok {
+			header.Set(nameHeader, name)
+		}
 		if msg.Method == "tools/call" {
 			if tool, ok := ctx.Value(toolContextKey).(*Tool); ok && tool != nil {
 				for k, v := range generateParamHeaders(tool, msg.Params) {

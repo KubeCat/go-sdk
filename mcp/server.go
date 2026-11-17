@@ -82,6 +82,7 @@ type Server struct {
 	resourceChangeSubscriptions map[*ServerSession][]jsonrpc.ID            // session -> requestID of each listen for "resources/changed"
 	resourceSubscriptions       map[string]map[*ServerSession][]jsonrpc.ID // uri -> session -> requestID of each subscription
 	pendingNotifications        map[string]*time.Timer                     // notification name -> timer for pending notification send
+	tasks                       atomic.Pointer[TaskServer]                 // stored once, by NewTaskServer
 	// receiveMethods is the merged map of methods this server may receive
 	// from a client: it always contains the standard server methods (from
 	// serverMethodInfos) plus any custom methods registered via
@@ -1016,6 +1017,9 @@ func (s *Server) discover(ctx context.Context, req *ServerRequest[*DiscoverParam
 		Capabilities:      s.capabilities(),
 		Instructions:      s.opts.Instructions,
 	}
+	if ts := s.tasks.Load(); ts != nil {
+		ts.advertise(res, req.ProtocolVersion())
+	}
 	s.resolveCacheable(ctx, req, &res.Cacheable)
 	return res, nil
 }
@@ -1384,6 +1388,19 @@ func (s *Server) subscriptionsListen(ctx context.Context, req *SubscriptionsList
 	}
 
 	allowed := s.allowedSubscriptions(req.Params.Notifications)
+	var taskSub *taskSubscription // nil unless a TaskServer is installed and this listen named tasks it accepts
+	if ts := s.tasks.Load(); ts != nil && len(req.Params.Notifications.TaskIDs) > 0 {
+		var err error
+		taskSub, err = ts.subscribe(ctx, req, requestID)
+		if err != nil {
+			return nil, err
+		}
+		if taskSub != nil {
+			allowed.TaskIDs = taskSub.ids
+			ctx = taskSub.context(ctx)
+			defer taskSub.close()
+		}
+	}
 	s.mu.Lock()
 	if allowed.ToolsListChanged {
 		addListen(s.toolChangeSubscriptions, req.Session, requestID)
@@ -1441,7 +1458,9 @@ func (s *Server) subscriptionsListen(ctx context.Context, req *SubscriptionsList
 	}
 
 	// If there are any active subscriptions, we block until the context is cancelled. Otherwise, we return immediately.
-	if len(allowed.ResourceSubscriptions) > 0 || allowed.ToolsListChanged || allowed.PromptsListChanged || allowed.ResourcesListChanged {
+	if taskSub != nil {
+		taskSub.deliver(ctx)
+	} else if len(allowed.ResourceSubscriptions) > 0 || allowed.ToolsListChanged || allowed.PromptsListChanged || allowed.ResourcesListChanged {
 		<-ctx.Done()
 	}
 	return &SubscriptionsListenResult{
@@ -2613,6 +2632,9 @@ func AddReceivingCustomMethod[P paramsPtr[T], R Result, T any](
 
 	s.mu.Lock()
 	defer s.mu.Unlock()
+	if ts := s.tasks.Load(); ts != nil && ts.ownsMethod(method) {
+		return fmt.Errorf("mcp: AddReceivingCustomMethod: %q is reserved by the installed tasks extension", method)
+	}
 	s.receiveMethods[method] = newServerMethodInfo(typed, missingParamsOK)
 	return nil
 }

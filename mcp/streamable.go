@@ -1794,6 +1794,24 @@ func (c *streamableServerConn) servePOST(w http.ResponseWriter, req *http.Reques
 			}
 			return
 		}
+		if c.server != nil {
+			if ts := c.server.tasks.Load(); ts != nil {
+				if err := ts.validateHeaders(req.Header, incoming[0]); err != nil {
+					resp := &jsonrpc.Response{
+						Error: jsonrpc2.NewError(CodeHeaderMismatch, err.Error()),
+					}
+					if jreq, ok := incoming[0].(*jsonrpc.Request); ok {
+						resp.ID = jreq.ID
+					}
+					w.Header().Set("Content-Type", "application/json")
+					w.WriteHeader(http.StatusBadRequest)
+					if data, err := jsonrpc2.EncodeMessage(resp); err == nil {
+						w.Write(data)
+					}
+					return
+				}
+			}
+		}
 	}
 
 	// The prime and close events were added in protocol version 2025-11-25 (SEP-1699).

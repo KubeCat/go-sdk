@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -120,6 +121,23 @@ func TestExtractName(t *testing.T) {
 					tt.method, gotName, gotOK, tt.wantName, tt.wantOK)
 			}
 		})
+	}
+}
+
+func TestStandardHeadersNonOptedTaskMethods(t *testing.T) {
+	for _, method := range []string{"tasks/get", "tasks/update", "tasks/cancel"} {
+		for _, params := range []string{`{"taskId":"custom"}`, `{}`} {
+			header := make(http.Header)
+			header.Set(protocolVersionHeader, protocolVersion20260728)
+			setStandardHeaders(t.Context(), header, &jsonrpc.Request{Method: method, Params: json.RawMessage(params)})
+			want := http.Header{
+				protocolVersionHeader: {protocolVersion20260728},
+				methodHeader:          {method},
+			}
+			if !reflect.DeepEqual(header, want) {
+				t.Errorf("%s params %s headers = %v, want the unchanged SDK's headers %v", method, params, header, want)
+			}
+		}
 	}
 }
 

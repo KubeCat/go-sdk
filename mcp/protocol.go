@@ -304,6 +304,23 @@ type CallToolParams struct {
 	// RequestState is the opaque state from the previous input-required result.
 	// The client must echo this back when retrying.
 	RequestState string `json:"requestState,omitempty"`
+	// UseTasks opts this call in to the tasks extension: CallTool declares the
+	// extension in the request's capabilities and, if the server answers by
+	// creating a task, the result's Task method returns its handle. The field
+	// is not sent on the wire.
+	//
+	// A call also uses the extension, and returns the handle of a task the
+	// server created, when the program declares the extension itself: in
+	// ClientOptions.Capabilities, or in the client capabilities it puts in
+	// the call's _meta. Such a call is sent exactly as it is without the
+	// field. The two differ in one case: with UseTasks an answer that says it
+	// is a task and is not a valid one is an error; without it CallTool
+	// returns the result as it always did, with no handle.
+	//
+	// The opt-in belongs to this one request. If sending middleware replaces
+	// the params, or does not pass on the context it was given, the call is
+	// made as a plain call and returns no handle.
+	UseTasks bool `json:"-"`
 }
 
 // CallToolParamsRaw is passed to tool handlers on the server. Its arguments
@@ -394,6 +411,14 @@ type CallToolResult struct {
 	// means the client must fulfill InputRequests and retry.
 	// See [CallToolResult.NeedsInput].
 	resultType resultType
+	// task is the handle of the task this result created. It is set only by an
+	// installed TaskServer and by a CallTool that set UseTasks, never by the
+	// JSON codec, and is read only by the Task method.
+	task *Task
+	// taskCreated marks a result an installed TaskServer made for a task it
+	// started: MarshalJSON writes it as a CreateTaskResult. Nothing else sets
+	// it, so no decoded, forwarded or hand-built result is ever written so.
+	taskCreated bool
 	// The error passed to setError, if any.
 	// It is not marshaled, and therefore it is only visible on the server.
 	// Its only use is in server sending middleware, where it can be accessed
@@ -449,6 +474,9 @@ func (r *CallToolResult) NeedsInput() bool { return r.resultType == resultTypeIn
 var structuredcontentfloat64 = mcpgodebug.Value("structuredcontentfloat64")
 
 func (x *CallToolResult) MarshalJSON() ([]byte, error) {
+	if x.taskCreated {
+		return marshalCreateTaskResult(x)
+	}
 	type res CallToolResult // avoid recursion
 	type wire struct {
 		res
@@ -2164,6 +2192,15 @@ type NotificationSubscriptions struct {
 	// wants "notifications/resources/updated". Replaces the legacy
 	// resources/subscribe RPC.
 	ResourceSubscriptions []string `json:"resourceSubscriptions,omitempty"`
+	// TaskIDs enumerates tasks for which the client wants notifications/tasks.
+	//
+	// The field is not part of this type's JSON: marshaling never writes it
+	// and unmarshaling never reads it. Only the tasks extension fills it, from
+	// the taskIds of a subscriptions/listen request received by a server with
+	// a TaskServer installed, and of an acknowledgement received while
+	// ClientSession.FollowTask runs; and only the extension writes it to the
+	// wire, in those same two messages.
+	TaskIDs []string `json:"-"`
 }
 
 // SubscriptionsListenParams are the parameters for the

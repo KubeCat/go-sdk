@@ -506,6 +506,15 @@ type ClientSession struct {
 	// resourceSubs entry, so a listen goroutine only clears the entry it
 	// created and not one installed by a later Subscribe for the same URI.
 	nextResourceSubGen uint64
+
+	// The fields below belong to the tasks extension (task_client.go). They
+	// are zero until FollowTask runs on this session.
+	taskFollowersMu sync.Mutex
+	taskFollowers   map[string]map[*taskFollower]struct{}
+	newTaskTimer    func(time.Duration) taskTimer
+	// taskReceive, when non-nil, replaces the standard table as this
+	// session's receiving method table. See [ClientSession.registerTaskFollower].
+	taskReceive atomic.Pointer[map[string]methodInfo]
 }
 
 // resourceSub is the per-URI state of a SEP-2575 resource subscription: the
@@ -1098,6 +1107,9 @@ func (cs *ClientSession) sendingMethodInfos() map[string]methodInfo {
 }
 
 func (cs *ClientSession) receivingMethodInfos() map[string]methodInfo {
+	if m := cs.taskReceive.Load(); m != nil {
+		return *m
+	}
 	if allowmissingclientparams == "1" {
 		return clientMethodInfosLegacyParams
 	}
@@ -1236,6 +1248,12 @@ func (cs *ClientSession) ListTools(ctx context.Context, params *ListToolsParams)
 func (cs *ClientSession) CallTool(ctx context.Context, params *CallToolParams) (*CallToolResult, error) {
 	if params == nil {
 		params = new(CallToolParams)
+	}
+	if cs.callUsesTasks(params) {
+		var err error
+		if ctx, params, err = cs.useTasks(ctx, params); err != nil {
+			return nil, err
+		}
 	}
 	if params.Arguments == nil {
 		// Avoid sending nil over the wire.
